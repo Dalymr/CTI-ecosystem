@@ -63,6 +63,9 @@ services:
   opencti:
     image: opencti/platform:6.0.0-fips
     environment:
+      - HTTP_PROXY=http://172.22.200.200:8080/
+      - HTTPS_PROXY=http://172.22.200.200:8080/
+      - NO_PROXY=elasticsearch, redis, minio, rabbitmq, opencti
       - NODE_OPTIONS=--max-old-space-size=8096
       - APP__PORT=30020
       - APP__BASE_URL=${OPENCTI_BASE_URL}
