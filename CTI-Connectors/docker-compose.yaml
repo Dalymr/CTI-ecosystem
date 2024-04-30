@@ -12,10 +12,8 @@ services:
       - CONNECTOR_CONFIDENCE_LEVEL=15 # From 0 (Unknown) to 100 (Fully trusted)
       - CONNECTOR_LOG_LEVEL=info
     restart: always
-    depends_on:
-      - opencti
     networks:
-      opencti-net:
+      opencti_opencti-net:
         ipv4_address: 10.0.0.7
   connector-export-file-csv:
     image: opencti/connector-export-file-csv:6.0.0
@@ -29,10 +27,8 @@ services:
       - CONNECTOR_CONFIDENCE_LEVEL=15 # From 0 (Unknown) to 100 (Fully trusted)
       - CONNECTOR_LOG_LEVEL=info
     restart: always
-    depends_on:
-      - opencti
     networks:
-      opencti-net:
+      opencti_opencti-net:
         ipv4_address: 10.0.0.8
   connector-export-file-txt:
     image: opencti/connector-export-file-txt:6.0.0
@@ -46,10 +42,8 @@ services:
       - CONNECTOR_CONFIDENCE_LEVEL=15 # From 0 (Unknown) to 100 (Fully trusted)
       - CONNECTOR_LOG_LEVEL=info
     restart: always
-    depends_on:
-      - opencti
     networks:
-      opencti-net:
+      opencti_opencti-net:
         ipv4_address: 10.0.0.9
   connector-import-file-stix:
     image: opencti/connector-import-file-stix:6.0.0
@@ -66,10 +60,8 @@ services:
       - CONNECTOR_LOG_LEVEL=info
     restart: always
     networks:
-      opencti-net:
+      opencti_opencti-net:
         ipv4_address: 10.0.0.10
-    depends_on:
-      - opencti
   connector-import-document:
     image: opencti/connector-import-document:6.0.0
     environment:
@@ -86,10 +78,8 @@ services:
       - CONNECTOR_LOG_LEVEL=info
       - IMPORT_DOCUMENT_CREATE_INDICATOR=true
     restart: always
-    depends_on:
-      - opencti
     networks:
-      opencti-net:
+      opencti_opencti-net:
         ipv4_address: 10.0.0.11
   connector-alienvault:
     image: opencti/connector-alienvault:6.0.0
@@ -117,11 +107,9 @@ services:
       - ALIENVAULT_ENABLE_RELATIONSHIPS=true                                  # Enable/Disable relationship creation between SDOs.
       - ALIENVAULT_ENABLE_ATTACK_PATTERNS_INDICATES=false                     # Enable/Disable "indicates" relationships between indicators and attack patterns
       - ALIENVAULT_INTERVAL_SEC=1800
-    depends_on:
-    - opencti
     restart: always
     networks:
-      opencti-net:
+      opencti_opencti-net:
         ipv4_address: 10.0.0.12
   connector-mitre:
     image: opencti/connector-mitre:6.0.2
@@ -139,13 +127,8 @@ services:
       - MITRE_INTERVAL=1 # In days
     restart: always
     networks:
-      opencti-net:
+      opencti_opencti-net:
         ipv4_address: 10.0.0.13
 networks:
-  opencti-net:
-    driver: bridge
-    ipam:
-     config:
-       - subnet: 10.0.0.0/27
-         gateway: 10.0.0.1
-
+  opencti_opencti-net:
+       external: true
