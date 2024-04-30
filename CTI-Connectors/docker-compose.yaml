@@ -86,7 +86,7 @@ services:
     environment:
       - HTTP_PROXY=http://172.22.200.200:8080/
       - HTTPS_PROXY=http://172.22.200.200:8080/
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2
+      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2,10.0.0.0/27
       - OPENCTI_URL=http://10.0.0.2:30020
       - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
       - CONNECTOR_ID=6ed68f19-7c8f-48fa-b50f-d598c7fb42ad
@@ -131,12 +131,10 @@ services:
       - CONNECTOR_LOG_LEVEL=error
       - MITRE_REMOVE_STATEMENT_MARKING=true
       - MITRE_INTERVAL=1 # In days
-      - http_proxy=http://172.22.200.200:8080/
-      - https_proxy=http://172.22.200.200:8080/
       - HTTP_PROXY=http://172.22.200.200:8080/
       - HTTPS_PROXY=http://172.22.200.200:8080/
-      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2
+      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2,10.0.0.0/27
+      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2,10.0.0.0/27
     restart: always
     networks:
       opencti_opencti-net:

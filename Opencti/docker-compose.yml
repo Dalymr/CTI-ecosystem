@@ -65,7 +65,7 @@ services:
     environment:
       - HTTP_PROXY=http://172.22.200.200:8080/
       - HTTPS_PROXY=http://172.22.200.200:8080/
-      - NO_PROXY=elasticsearch, redis, minio, rabbitmq, opencti
+      - NO_PROXY=elasticsearch, redis, minio, rabbitmq, opencti,worker,10.0.0.1/27,127.0.0.1/27,172.0.0.1/16
       - NODE_OPTIONS=--max-old-space-size=8096
       - APP__PORT=30020
       - APP__BASE_URL=${OPENCTI_BASE_URL}
