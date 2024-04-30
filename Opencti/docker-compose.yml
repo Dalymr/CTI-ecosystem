@@ -67,8 +67,8 @@ services:
       - https_proxy=http://172.22.200.200:8080/
       - HTTP_PROXY=http://172.22.200.200:8080/
       - HTTPS_PROXY=http://172.22.200.200:8080/
-      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2
+      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.0/27
+      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.0/27
       - NODE_OPTIONS=--max-old-space-size=8096
       - APP__PORT=30020
       - APP__BASE_URL=${OPENCTI_BASE_URL}
