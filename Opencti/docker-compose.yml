@@ -63,6 +63,12 @@ services:
   opencti:
     image: opencti/platform:6.0.0-fips
     environment:
+      - http_proxy=http://172.22.200.200:8080/
+      - https_proxy=http://172.22.200.200:8080/
+      - HTTP_PROXY=http://172.22.200.200:8080/
+      - HTTPS_PROXY=http://172.22.200.200:8080/
+      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2
+      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2
       - NODE_OPTIONS=--max-old-space-size=8096
       - APP__PORT=30020
       - APP__BASE_URL=${OPENCTI_BASE_URL}
@@ -101,6 +107,12 @@ services:
   worker:
     image: opencti/worker:6.0.0
     environment:
+      - http_proxy=http://172.22.200.200:8080/
+      - https_proxy=http://172.22.200.200:8080/
+      - HTTP_PROXY=http://172.22.200.200:8080/
+      - HTTPS_PROXY=http://172.22.200.200:8080/
+      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2
+      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2
       - OPENCTI_URL=http://10.0.0.2:30020
       - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
       - WORKER_LOG_LEVEL=info
