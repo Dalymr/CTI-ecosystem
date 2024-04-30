@@ -5,7 +5,7 @@ services:
     volumes:
       - redisdata:/data
     restart: no
-  networks:
+    networks:
       opencti-net:
         ipv4_address: 10.0.0.4 
   elasticsearch:
@@ -64,7 +64,7 @@ services:
     image: opencti/platform:6.0.0-fips
     environment:
       - NODE_OPTIONS=--max-old-space-size=8096
-      - APP__PORT=8080
+      - APP__PORT=30020
       - APP__BASE_URL=${OPENCTI_BASE_URL}
       - APP__ADMIN__EMAIL=${OPENCTI_ADMIN_EMAIL}
       - APP__ADMIN__PASSWORD=${OPENCTI_ADMIN_PASSWORD}
@@ -101,7 +101,7 @@ services:
   worker:
     image: opencti/worker:6.0.0
     environment:
-      - OPENCTI_URL=http://opencti:30020
+      - OPENCTI_URL=http://10.0.0.2:30020
       - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
       - WORKER_LOG_LEVEL=info
     depends_on:
