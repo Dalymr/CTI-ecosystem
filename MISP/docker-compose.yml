@@ -1,87 +1,193 @@
-version: '3.3'
-
+version: '3'
 services:
-  mysql:
-    image: mariadb:11.3
-    restart: no
-    container_name: misp-mysql
-    tmpfs:
-      - /tmp
-    volumes:
-      - mysql_data:/var/lib/mysql
+  # This is capable to relay via gmail, Amazon SES, or generic relays
+  # See: https://hub.docker.com/r/ixdotai/smtp
+  mail:
+    image: ixdotai/smtp
     environment:
-      MYSQL_DATABASE: misp
-      MYSQL_USER: misp
-      MYSQL_PASSWORD: password # Please change for production
-      MYSQL_ROOT_PASSWORD: password # Please change for production
+      - "SMARTHOST_ADDRESS=${SMARTHOST_ADDRESS}"
+      - "SMARTHOST_PORT=${SMARTHOST_PORT}"
+      - "SMARTHOST_USER=${SMARTHOST_USER}"
+      - "SMARTHOST_PASSWORD=${SMARTHOST_PASSWORD}"
+      - "SMARTHOST_ALIASES=${SMARTHOST_ALIASES}"
+    networks:
+      misp-net:
+        ipv4_address: 10.0.0.38
 
   redis:
-    image: redis:7.2
-    restart: no
-    container_name: misp-redis
-    volumes:
-      - redis_data:/data
+    image: valkey/valkey:7.2
+    healthcheck:
+      test: valkey-cli ping || exit 1
+      interval: 2s
+      timeout: 1s
+      retries: 3
+      start_period: 30s
+    networks:
+      misp-net:
+        ipv4_address: 10.0.0.34
 
-  misp-modules:
-    image: ghcr.io/nukib/misp-modules:latest
-    restart: no
-    container_name: misp-modules
-    cap_drop:
-      - NET_RAW
-      - SYS_CHROOT
-      - MKNOD
-      - NET_BIND_SERVICE
-      - AUDIT_WRITE
-      - SETFCAP
-
-  misp:
-    image: ${MISP_IMAGE-ghcr.io/nukib/misp:latest}
-    restart: no
-    container_name: misp
-    depends_on:
-      - mysql
-      - redis
-    tmpfs:
-      - /tmp
-    cap_drop:
-      - NET_RAW
-      - SYS_CHROOT
-      - MKNOD
-      - AUDIT_WRITE
-      - SETFCAP
+  db:
+    # We use MariaDB because it supports ARM and has the expected collations
+    image: mariadb:10.11
+    restart: always
     environment:
-      MYSQL_HOST: mysql
-      MYSQL_LOGIN: misp
-      MYSQL_PASSWORD: password # Please change for production
-      MYSQL_DATABASE: misp
-      REDIS_HOST: redis
-      MISP_BASEURL: http://localhost:8080
-      MISP_UUID: 0a674a5a-c4cb-491d-80cf-5adb48b5c1cd # Please change for production
-      MISP_ORG: Testing org # Please change for production
-      MISP_MODULE_URL: http://misp-modules
-      MISP_EMAIL: ahoj@example.com # Please change for production
-      SECURITY_SALT: PleaseChangeForProduction # Please change for production
-      ZEROMQ_ENABLED: yes
-      SYSLOG_ENABLED: no
-      ECS_LOG_ENABLED: yes
-      MISP_DEBUG: yes
+      - "MYSQL_USER=${MYSQL_USER:-misp}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD:-example}"
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-password}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE:-misp}"
     volumes:
-      - misp_logs:/var/www/MISP/app/tmp/logs/
-      - misp_certs:/var/www/MISP/app/files/certs/
-      - misp_attachments:/var/www/MISP/app/attachments/
-      - misp_img_orgs:/var/www/MISP/app/files/img/orgs/
-      - misp_img_custom:/var/www/MISP/app/files/img/custom/
-      - misp_gnupg:/var/www/MISP/.gnupg/
+      - mysql_data:/var/lib/mysql
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE Prevent runaway mysql log
+    healthcheck:
+      test: mysqladmin --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD status
+      interval: 2s
+      timeout: 1s
+      retries: 3
+      start_period: 30s
+      networks:
+      misp-net:
+        ipv4_address: 10.0.0.35
+
+  misp-core:
+    image: ghcr.io/misp/misp-docker/misp-core:latest
+    build:
+      context: core/.
+      args:
+          - CORE_TAG=${CORE_TAG:?Missing .env file, see README.md for instructions}
+          - CORE_COMMIT=${CORE_COMMIT}
+          - PHP_VER=${PHP_VER:?Missing .env file, see README.md for instructions}
+          - PYPI_REDIS_VERSION=${PYPI_REDIS_VERSION}
+          - PYPI_LIEF_VERSION=${PYPI_LIEF_VERSION}
+          - PYPI_PYDEEP2_VERSION=${PYPI_PYDEEP2_VERSION}
+          - PYPI_PYTHON_MAGIC_VERSION=${PYPI_PYTHON_MAGIC_VERSION}
+          - PYPI_MISP_LIB_STIX2_VERSION=${PYPI_MISP_LIB_STIX2_VERSION}
+          - PYPI_MAEC_VERSION=${PYPI_MAEC_VERSION}
+          - PYPI_MIXBOX_VERSION=${PYPI_MIXBOX_VERSION}
+          - PYPI_CYBOX_VERSION=${PYPI_CYBOX_VERSION}
+          - PYPI_PYMISP_VERSION=${PYPI_PYMISP_VERSION}
+    depends_on:
+      redis:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: curl -ks https://10.0.0.33/users/login > /dev/null || exit 1
+      interval: 2s
+      timeout: 1s
+      retries: 3
+      start_period: 30s
     ports:
-      - "127.0.0.1:8080:80"
-      - "127.0.0.1:50000:50000"
+      - "20000:80"
+      - "20443:443"
+    volumes:
+      - "./configs/:/var/www/MISP/app/Config/"
+      - "./logs/:/var/www/MISP/app/tmp/logs/"
+      - "./files/:/var/www/MISP/app/files/"
+      - "./ssl/:/etc/nginx/certs/"
+      - "./gnupg/:/var/www/MISP/.gnupg/"
+      # customize by replacing ${CUSTOM_PATH} with a path containing 'files/customize_misp.sh'
+      # - "${CUSTOM_PATH}/:/custom/"
+      # mount custom ca root certificates
+      # - "./rootca.pem:/usr/local/share/ca-certificates/rootca.crt"
+    environment:
+      - HTTP_PROXY=http://172.22.200.200:8080/
+      - HTTPS_PROXY=http://172.22.200.200:8080/
+      - NO_PROXY=db,redis,opencti,misp-core,mail,misp-modules,10.0.0.32/29,127.0.0.1/27,172.0.0.1/16,10.0.0.2
+      - "BASE_URL=${BASE_URL}"
+      - "CRON_USER_ID=${CRON_USER_ID}"
+      - "DISABLE_IPV6=${DISABLE_IPV6}"
+      - "DISABLE_SSL_REDIRECT=${DISABLE_SSL_REDIRECT}"
+      # standard settings
+      - "ADMIN_EMAIL=${ADMIN_EMAIL}"
+      - "ADMIN_PASSWORD=${ADMIN_PASSWORD}"
+      - "ADMIN_KEY=${ADMIN_KEY}"
+      - "ADMIN_ORG=${ADMIN_ORG}"
+      - "GPG_PASSPHRASE=${GPG_PASSPHRASE}"
+      # OIDC authentication settings
+      - "OIDC_ENABLE=${OIDC_ENABLE}"
+      - "OIDC_PROVIDER_URL=${OIDC_PROVIDER_URL}"
+      - "OIDC_CLIENT_ID=${OIDC_CLIENT_ID}"
+      - "OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}"
+      - "OIDC_ROLES_PROPERTY=${OIDC_ROLES_PROPERTY}"
+      - "OIDC_ROLES_MAPPING=${OIDC_ROLES_MAPPING}"
+      - "OIDC_DEFAULT_ORG=${OIDC_DEFAULT_ORG}"
+      # LDAP authentication settings
+      - "LDAP_ENABLE=${LDAP_ENABLE}"
+      - "LDAP_APACHE_ENV=${LDAP_APACHE_ENV}"
+      - "LDAP_SERVER=${LDAP_SERVER}"
+      - "LDAP_STARTTLS=${LDAP_STARTTLS}"
+      - "LDAP_READER_USER=${LDAP_READER_USER}"
+      - "LDAP_READER_PASSWORD=${LDAP_READER_PASSWORD}"
+      - "LDAP_DN=${LDAP_DN}"
+      - "LDAP_SEARCH_FILTER=${LDAP_SEARCH_FILTER}"
+      - "LDAP_SEARCH_ATTRIBUTE=${LDAP_SEARCH_ATTRIBUTE}"
+      - "LDAP_FILTER=${LDAP_FILTER}"
+      - "LDAP_DEFAULT_ROLE_ID=${LDAP_DEFAULT_ROLE_ID}"
+      - "LDAP_DEFAULT_ORG=${LDAP_DEFAULT_ORG}"
+      - "LDAP_EMAIL_FIELD=${LDAP_EMAIL_FIELD}"
+      - "LDAP_OPT_PROTOCOL_VERSION=${LDAP_OPT_PROTOCOL_VERSION}"
+      - "LDAP_OPT_NETWORK_TIMEOUT=${LDAP_OPT_NETWORK_TIMEOUT}"
+      - "LDAP_OPT_REFERRALS=${LDAP_OPT_REFERRALS}"
+      # AAD authentication settings
+      - "AAD_ENABLE=${AAD_ENABLE}"
+      - "AAD_CLIENT_ID=${AAD_CLIENT_ID}"
+      - "AAD_TENANT_ID=${AAD_TENANT_ID}"
+      - "AAD_CLIENT_SECRET=${AAD_CLIENT_SECRET}"
+      - "AAD_REDIRECT_URI=${AAD_REDIRECT_URI}"
+      - "AAD_PROVIDER=${AAD_PROVIDER}"
+      - "AAD_PROVIDER_USER=${AAD_PROVIDER_USER}"
+      - "AAD_MISP_USER=${AAD_MISP_USER}"
+      - "AAD_MISP_ORGADMIN=${AAD_MISP_ORGADMIN}"
+      - "AAD_MISP_SITEADMIN=${AAD_MISP_SITEADMIN}"
+      - "AAD_CHECK_GROUPS=${AAD_CHECK_GROUPS}"
+      # sync server settings (see https://www.misp-project.org/openapi/#tag/Servers for more options)
+      - "SYNCSERVERS=${SYNCSERVERS}"
+      - |
+        SYNCSERVERS_1_DATA=
+        {
+          "remote_org_uuid": "${SYNCSERVERS_1_UUID}",
+          "name": "${SYNCSERVERS_1_NAME}",
+          "authkey": "${SYNCSERVERS_1_KEY}",
+          "url": "${SYNCSERVERS_1_URL}",
+          "pull": true
+        }
+      # mysql settings
+      - "MYSQL_HOST=${MYSQL_HOST:-db}"
+      - "MYSQL_PORT=${MYSQL_PORT:-3306}"
+      - "MYSQL_USER=${MYSQL_USER:-misp}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD:-example}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE:-misp}"
+    networks:
+      misp-net:
+        ipv4_address: 10.0.0.33
+  
+  misp-modules:
+    image: ghcr.io/misp/misp-docker/misp-modules:latest
+    build:
+      context: modules/.
+      args:
+        - MODULES_TAG=${MODULES_TAG:?Missing .env file, see README.md for instructions}
+        - MODULES_COMMIT=${MODULES_COMMIT}
+        - LIBFAUP_COMMIT=${LIBFAUP_COMMIT:?Missing .env file, see README.md for instructions}
+    environment:
+      - HTTP_PROXY=http://172.22.200.200:8080/
+      - HTTPS_PROXY=http://172.22.200.200:8080/
+      - NO_PROXY=db,redis,opencti,misp-core,mail,misp-modules,10.0.0.32/29,127.0.0.1/27,172.0.0.1/16,10.0.0.2
+      - "REDIS_BACKEND=redis"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      misp-net:
+        ipv4_address: 10.0.0.36
 
 volumes:
-  mysql_data:
-  redis_data:
-  misp_logs:
-  misp_certs:
-  misp_attachments:
-  misp_img_orgs:
-  misp_img_custom:
-  misp_gnupg:
+    mysql_data:
+networks:
+  misp-net:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.0.0.32/29
+         gateway: 10.0.0.37
