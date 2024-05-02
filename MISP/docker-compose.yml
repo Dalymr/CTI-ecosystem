@@ -163,7 +163,7 @@ services:
       misp-net:
         ipv4_address: 10.0.0.33
       opencti_opencti-net:
-        ipv4_address: 10.0.0.15
+        ipv4_address: 10.0.0.20
       
   
   misp-modules:
