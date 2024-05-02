@@ -35,6 +35,9 @@ services:
       - "MYSQL_PASSWORD=${MYSQL_PASSWORD:-example}"
       - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-password}"
       - "MYSQL_DATABASE=${MYSQL_DATABASE:-misp}"
+    networks:
+      misp-net:
+        ipv4_address: 10.0.0.35
     volumes:
       - mysql_data:/var/lib/mysql
     cap_add:
@@ -45,9 +48,7 @@ services:
       timeout: 1s
       retries: 3
       start_period: 30s
-      networks:
-      misp-net:
-        ipv4_address: 10.0.0.35
+
 
   misp-core:
     image: ghcr.io/misp/misp-docker/misp-core:latest
