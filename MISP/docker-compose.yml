@@ -73,13 +73,13 @@ services:
       db:
         condition: service_healthy
     healthcheck:
-      test: curl -ks https://10.0.0.33/users/login > /dev/null || exit 1
+      test: curl -ks https://localhost/users/login > /dev/null || exit 1
       interval: 2s
       timeout: 1s
       retries: 3
       start_period: 30s
     ports:
-      - "20000:80"
+      - "80:80"
       - "20443:443"
     volumes:
       - "./configs/:/var/www/MISP/app/Config/"
