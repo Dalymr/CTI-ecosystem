@@ -117,9 +117,7 @@ services:
   connector-mitre:
     image: opencti/connector-mitre:6.0.2
     environment:
-      - HTTP_PROXY=http://172.22.200.200:8080/
-      - HTTPS_PROXY=http://172.22.200.200:8080/
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2
+
       - OPENCTI_URL=http://10.0.0.2:30020
       - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
       - CONNECTOR_ID=f30e7357-e521-46d7-90a1-8817dfd841dc
@@ -133,7 +131,6 @@ services:
       - MITRE_INTERVAL=1 # In days
       - HTTP_PROXY=http://172.22.200.200:8080/
       - HTTPS_PROXY=http://172.22.200.200:8080/
-      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2,10.0.0.0/27
       - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2,10.0.0.0/27
     restart: always
     networks:

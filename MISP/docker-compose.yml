@@ -192,7 +192,6 @@ networks:
      config:
        - subnet: 10.0.0.32/29
          gateway: 10.0.0.37
-  
-opencti-net:
-  name: opencti_opencti-net
-  external: true
+         
+  opencti_opencti-net:
+       external: true
