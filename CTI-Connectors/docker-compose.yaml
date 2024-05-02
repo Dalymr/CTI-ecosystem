@@ -84,9 +84,12 @@ services:
   connector-alienvault:
     image: opencti/connector-alienvault:6.0.0
     environment:
+      - http_proxy=http://172.22.200.200:8080/
+      - https_proxy=http://172.22.200.200:8080/
       - HTTP_PROXY=http://172.22.200.200:8080/
       - HTTPS_PROXY=http://172.22.200.200:8080/
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2,10.0.0.0/27
+      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2,10.0.0.0/27,10.0.0.32/29,172.0.0.1/16,10.0.0.2
+      - no_proxy=db,redis,opencti,misp-core,mail,misp-modules,10.0.0.32/29,127.0.0.1/27,172.0.0.1/16,10.0.0.2
       - OPENCTI_URL=http://10.0.0.2:30020
       - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
       - CONNECTOR_ID=6ed68f19-7c8f-48fa-b50f-d598c7fb42ad
@@ -114,6 +117,8 @@ services:
     networks:
       opencti_opencti-net:
         ipv4_address: 10.0.0.12
+      internet-gateway:
+        ipv4_address: 10.0.0.44
   connector-mitre:
     image: opencti/connector-mitre:6.0.2
     environment:
@@ -129,13 +134,20 @@ services:
       - CONNECTOR_LOG_LEVEL=error
       - MITRE_REMOVE_STATEMENT_MARKING=true
       - MITRE_INTERVAL=1 # In days
+      - http_proxy=http://172.22.200.200:8080/
+      - https_proxy=http://172.22.200.200:8080/
       - HTTP_PROXY=http://172.22.200.200:8080/
       - HTTPS_PROXY=http://172.22.200.200:8080/
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2,10.0.0.0/27
+      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2,10.0.0.0/27,10.0.0.32/29,172.0.0.1/16,10.0.0.2
+      - no_proxy=db,redis,opencti,misp-core,mail,misp-modules,10.0.0.32/29,127.0.0.1/27,172.0.0.1/16,10.0.0.2
     restart: always
     networks:
       opencti_opencti-net:
         ipv4_address: 10.0.0.13
+      internet-gateway:
+        ipv4_address: 10.0.0.45
 networks:
   opencti_opencti-net:
+       external: true
+  internet-gateway:
        external: true
