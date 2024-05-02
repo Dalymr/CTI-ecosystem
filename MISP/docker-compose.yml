@@ -162,6 +162,9 @@ services:
     networks:
       misp-net:
         ipv4_address: 10.0.0.33
+      opencti_opencti-net:
+        ipv4_address: 10.0.0.15
+      
   
   misp-modules:
     image: ghcr.io/misp/misp-docker/misp-modules:latest
@@ -192,6 +195,6 @@ networks:
      config:
        - subnet: 10.0.0.32/29
          gateway: 10.0.0.37
-         
+
   opencti_opencti-net:
        external: true
