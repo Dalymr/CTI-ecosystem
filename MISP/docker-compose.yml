@@ -92,9 +92,9 @@ services:
       # mount custom ca root certificates
       # - "./rootca.pem:/usr/local/share/ca-certificates/rootca.crt"
     environment:
-      - HTTP_PROXY=http://172.22.200.200:8080/
-      - HTTPS_PROXY=http://172.22.200.200:8080/
-      - NO_PROXY=db,redis,opencti,misp-core,mail,misp-modules,10.0.0.32/29,127.0.0.1/27,172.0.0.1/16,10.0.0.2
+      - http_proxy=http://172.22.200.200:8080/
+      - https_proxy=http://172.22.200.200:8080/
+      - no_proxy=db,redis,opencti,misp-core,mail,misp-modules,10.0.0.32/29,127.0.0.1/27,172.0.0.1/16,10.0.0.2
       - "BASE_URL=${BASE_URL}"
       - "CRON_USER_ID=${CRON_USER_ID}"
       - "DISABLE_IPV6=${DISABLE_IPV6}"
@@ -175,9 +175,9 @@ services:
         - MODULES_COMMIT=${MODULES_COMMIT}
         - LIBFAUP_COMMIT=${LIBFAUP_COMMIT:?Missing .env file, see README.md for instructions}
     environment:
-      - HTTP_PROXY=http://172.22.200.200:8080/
-      - HTTPS_PROXY=http://172.22.200.200:8080/
-      - NO_PROXY=db,redis,opencti,misp-core,mail,misp-modules,10.0.0.32/29,127.0.0.1/27,172.0.0.1/16,10.0.0.2
+      - http_proxy=http://172.22.200.200:8080/
+      - https_proxy=http://172.22.200.200:8080/
+      - no_proxy=db,redis,opencti,misp-core,mail,misp-modules,10.0.0.32/29,127.0.0.1/27,172.0.0.1/16,10.0.0.2
       - "REDIS_BACKEND=redis"
     depends_on:
       redis:
