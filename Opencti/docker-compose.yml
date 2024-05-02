@@ -63,10 +63,7 @@ services:
   opencti:
     image: opencti/platform:6.0.0-fips
     environment:
-      - HTTP_PROXY=http://172.22.200.200:8080/
-      - HTTPS_PROXY=http://172.22.200.200:8080/
-      - NO_PROXY=elasticsearch, redis, minio, rabbitmq, opencti,worker,10.0.0.1/27,127.0.0.1/27,172.0.0.1/16
-      - NODE_OPTIONS=--max-old-space-size=8096
+      - NODE_OPTIONS=--max-old-space-size=4000
       - APP__PORT=30020
       - APP__BASE_URL=${OPENCTI_BASE_URL}
       - APP__ADMIN__EMAIL=${OPENCTI_ADMIN_EMAIL}
@@ -113,7 +110,8 @@ services:
       mode: replicated
       replicas: 3
     restart: always
-
+    networks:
+      - opencti-net
 volumes:
   esdata:
   s3data:
