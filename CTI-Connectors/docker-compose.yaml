@@ -11,6 +11,8 @@ services:
       - CONNECTOR_SCOPE=application/json
       - CONNECTOR_CONFIDENCE_LEVEL=15 # From 0 (Unknown) to 100 (Fully trusted)
       - CONNECTOR_LOG_LEVEL=info
+      - NO_PROXY=localhost,::1,172.0.0.1/8,10.0.0.2
+      - no_proxy=localhost,::1,172.0.0.1/8,10.0.0.2
     restart: always
     networks:
       opencti_opencti-net:
@@ -26,6 +28,8 @@ services:
       - CONNECTOR_SCOPE=text/csv
       - CONNECTOR_CONFIDENCE_LEVEL=15 # From 0 (Unknown) to 100 (Fully trusted)
       - CONNECTOR_LOG_LEVEL=info
+      - NO_PROXY=localhost,::1,172.0.0.1/8,10.0.0.2
+      - no_proxy=localhost,::1,172.0.0.1/8,10.0.0.2
     restart: always
     networks:
       opencti_opencti-net:
@@ -41,6 +45,8 @@ services:
       - CONNECTOR_SCOPE=text/plain
       - CONNECTOR_CONFIDENCE_LEVEL=15 # From 0 (Unknown) to 100 (Fully trusted)
       - CONNECTOR_LOG_LEVEL=info
+      - NO_PROXY=localhost,::1,172.0.0.1/8,10.0.0.2
+      - no_proxy=localhost,::1,172.0.0.1/8,10.0.0.2
     restart: always
     networks:
       opencti_opencti-net:
@@ -58,6 +64,8 @@ services:
       - CONNECTOR_AUTO=true # Enable/disable auto-import of file
       - CONNECTOR_CONFIDENCE_LEVEL=15 # From 0 (Unknown) to 100 (Fully trusted)
       - CONNECTOR_LOG_LEVEL=info
+      - NO_PROXY=localhost,::1,172.0.0.1/8,10.0.0.2
+      - no_proxy=localhost,::1,172.0.0.1/8,10.0.0.2
     restart: always
     networks:
       opencti_opencti-net:
@@ -77,6 +85,8 @@ services:
       - CONNECTOR_CONFIDENCE_LEVEL=15 # From 0 (Unknown) to 100 (Fully trusted)
       - CONNECTOR_LOG_LEVEL=info
       - IMPORT_DOCUMENT_CREATE_INDICATOR=true
+      - NO_PROXY=localhost,::1,172.0.0.1/8,10.0.0.2
+      - no_proxy=localhost,::1,172.0.0.1/8,10.0.0.2
     restart: always
     networks:
       opencti_opencti-net:
@@ -88,8 +98,8 @@ services:
       - https_proxy=http://172.22.200.200:8080/
       - HTTP_PROXY=http://172.22.200.200:8080/
       - HTTPS_PROXY=http://172.22.200.200:8080/
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2,10.0.0.0/27,10.0.0.32/29,172.0.0.1/16,10.0.0.2
-      - no_proxy=db,redis,opencti,misp-core,mail,misp-modules,10.0.0.32/29,127.0.0.1/27,172.0.0.1/16,10.0.0.2
+      - NO_PROXY=localhost,::1,172.0.0.1/8,10.0.0.2
+      - no_proxy=localhost,::1,172.0.0.1/8,10.0.0.2
       - OPENCTI_URL=http://10.0.0.2:30020
       - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
       - CONNECTOR_ID=6ed68f19-7c8f-48fa-b50f-d598c7fb42ad
@@ -138,8 +148,8 @@ services:
       - https_proxy=http://172.22.200.200:8080/
       - HTTP_PROXY=http://172.22.200.200:8080/
       - HTTPS_PROXY=http://172.22.200.200:8080/
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.2,10.0.0.0/27,10.0.0.32/29,172.0.0.1/16,10.0.0.2
-      - no_proxy=db,redis,opencti,misp-core,mail,misp-modules,10.0.0.32/29,127.0.0.1/27,172.0.0.1/16,10.0.0.2
+      - NO_PROXY=localhost,::1,172.0.0.1/8,10.0.0.2
+      - no_proxy=localhost,::1,172.0.0.1/8,10.0.0.2
     restart: always
     networks:
       opencti_opencti-net:
