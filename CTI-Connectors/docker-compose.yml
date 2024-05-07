@@ -127,8 +127,6 @@ services:
     networks:
       opencti-net:
         ipv4_address: 10.0.0.12
-      internet-gateway:
-        ipv4_address: 10.0.0.44
   connector-mitre:
     image: opencti/connector-mitre:6.0.2
     environment:
@@ -154,10 +152,6 @@ services:
     networks:
       opencti-net:
         ipv4_address: 10.0.0.13
-      internet-gateway:
-        ipv4_address: 10.0.0.45
 networks:
   opencti-net:
-       external: true
-  internet-gateway:
        external: true
