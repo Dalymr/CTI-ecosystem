@@ -11,7 +11,7 @@ services:
     volumes:
       - ./volumes/shared:/mnt/shared
     networks:
-      proxy-net:
+      net:
           ipv4_address: 1.0.0.2
 networks:
   net:
