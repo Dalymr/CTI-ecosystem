@@ -198,13 +198,7 @@ volumes:
     mysql_data:
 networks:
   misp-net:
-    driver: bridge
-    ipam:
-     config:
-       - subnet: 10.0.0.32/29
-         gateway: 10.0.0.38
-    internal: true
-
+       external: true
   internet-gateway:
        external: true
   platform-connections:

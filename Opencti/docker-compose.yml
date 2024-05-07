@@ -94,7 +94,7 @@ services:
       - SMTP__PORT=25
       - PROVIDERS__LOCAL__STRATEGY=LocalStrategy
     ports:
-      - "10.181.25.114:35000:30020"
+      - "35000:30020"
     depends_on:
       - redis
       - elasticsearch
@@ -129,13 +129,7 @@ volumes:
   amqpdata:
 networks:
   opencti-net:
-    driver: bridge
-    ipam:
-     config:
-       - subnet: 10.0.0.0/27
-         gateway: 10.0.0.1
-    internal: true
-
+       external: true
   internet-gateway:
        external: true
   platform-connections:
