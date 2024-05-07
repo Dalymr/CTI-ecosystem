@@ -12,11 +12,11 @@ services:
       - ./volumes/shared:/mnt/shared
     networks:
       net:
-          ipv4_address: 1.0.0.1
+          ipv4_address: 1.0.0.2
 networks:
   net:
     driver: bridge
     ipam:
       config:
         - subnet: 1.0.0.0/29
-
+          gateway: 1.0.0.1
