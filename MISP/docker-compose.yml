@@ -162,6 +162,8 @@ services:
         ipv4_address: 10.0.0.51
       expose-interfaces:
         ipv4_address: 10.0.0.66
+      proxy-gateway_net:
+        ipv4_address: 1.0.0.5
       
   
   misp-modules:
@@ -180,6 +182,8 @@ services:
     networks:
       misp-net:
         ipv4_address: 10.0.0.36
+      proxy-gateway_net:
+        ipv4_address: 1.0.0.4
 
 
 volumes:
@@ -191,3 +195,6 @@ networks:
       external: true
   expose-interfaces:
       external: true
+  proxy-gateway_net:
+      external: true
+      gateway: 1.0.0.2
