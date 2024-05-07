@@ -139,5 +139,5 @@ networks:
       external: true
   proxy-gateway_net:
       external: true
-      gateway: 1.0.0.2
+
 
