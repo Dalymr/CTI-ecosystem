@@ -167,6 +167,8 @@ services:
         ipv4_address: 10.0.0.33
       platform-connections:
         ipv4_address: 10.0.0.51
+      expose-interfaces:
+        ipv4_address: 10.0.0.66
       
   
   misp-modules:
@@ -199,4 +201,6 @@ networks:
   misp-net:
        external: true
   platform-connections:
+      external: true
+  expose-interfaces:
       external: true
