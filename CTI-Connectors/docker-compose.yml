@@ -10,8 +10,6 @@ services:
       - CONNECTOR_SCOPE=application/json
       - CONNECTOR_CONFIDENCE_LEVEL=15 # From 0 (Unknown) to 100 (Fully trusted)
       - CONNECTOR_LOG_LEVEL=info
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
-      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
     restart: always
     networks:
       platform-connections:
@@ -27,8 +25,6 @@ services:
       - CONNECTOR_SCOPE=text/csv
       - CONNECTOR_CONFIDENCE_LEVEL=15 # From 0 (Unknown) to 100 (Fully trusted)
       - CONNECTOR_LOG_LEVEL=info
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
-      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
     restart: always
     networks:
       platform-connections:
@@ -44,8 +40,6 @@ services:
       - CONNECTOR_SCOPE=text/plain
       - CONNECTOR_CONFIDENCE_LEVEL=15 # From 0 (Unknown) to 100 (Fully trusted)
       - CONNECTOR_LOG_LEVEL=info
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
-      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
     restart: always
     networks:
       platform-connections:
@@ -63,8 +57,6 @@ services:
       - CONNECTOR_AUTO=true # Enable/disable auto-import of file
       - CONNECTOR_CONFIDENCE_LEVEL=15 # From 0 (Unknown) to 100 (Fully trusted)
       - CONNECTOR_LOG_LEVEL=info
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
-      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
     restart: always
     networks:
       platform-connections:
@@ -84,8 +76,6 @@ services:
       - CONNECTOR_CONFIDENCE_LEVEL=15 # From 0 (Unknown) to 100 (Fully trusted)
       - CONNECTOR_LOG_LEVEL=info
       - IMPORT_DOCUMENT_CREATE_INDICATOR=true
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
-      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
     restart: always
     networks:
       platform-connections:
@@ -93,12 +83,6 @@ services:
   connector-alienvault:
     image: opencti/connector-alienvault:6.0.0
     environment:
-      - http_proxy=http://172.22.200.200:8080/
-      - https_proxy=http://172.22.200.200:8080/
-      - HTTP_PROXY=http://172.22.200.200:8080/
-      - HTTPS_PROXY=http://172.22.200.200:8080/
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
-      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
       - OPENCTI_URL=http://10.0.0.50:30020
       - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
       - CONNECTOR_ID=6ed68f19-7c8f-48fa-b50f-d598c7fb42ad
@@ -141,12 +125,6 @@ services:
       - CONNECTOR_LOG_LEVEL=error
       - MITRE_REMOVE_STATEMENT_MARKING=true
       - MITRE_INTERVAL=1 # In days
-      - http_proxy=http://172.22.200.200:8080/
-      - https_proxy=http://172.22.200.200:8080/
-      - HTTP_PROXY=http://172.22.200.200:8080/
-      - HTTPS_PROXY=http://172.22.200.200:8080/
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
-      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
     restart: always
     networks:
       platform-connections:

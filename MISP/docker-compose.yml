@@ -91,12 +91,6 @@ services:
       # mount custom ca root certificates
       # - "./rootca.pem:/usr/local/share/ca-certificates/rootca.crt"
     environment:
-      - http_proxy=http://172.22.200.200:8080/
-      - https_proxy=http://172.22.200.200:8080/
-      - HTTP_PROXY=http://172.22.200.200:8080/
-      - HTTPS_PROXY=http://172.22.200.200:8080/
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
-      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
       - "BASE_URL=${BASE_URL}"
       - "CRON_USER_ID=${CRON_USER_ID}"
       - "DISABLE_IPV6=${DISABLE_IPV6}"
@@ -179,12 +173,6 @@ services:
         - MODULES_COMMIT=${MODULES_COMMIT}
         - LIBFAUP_COMMIT=${LIBFAUP_COMMIT:?Missing .env file, see README.md for instructions}
     environment:
-      - http_proxy=http://172.22.200.200:8080/
-      - https_proxy=http://172.22.200.200:8080/
-      - HTTP_PROXY=http://172.22.200.200:8080/
-      - HTTPS_PROXY=http://172.22.200.200:8080/
-      - NO_PROXY=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
-      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.1/8
       - "REDIS_BACKEND=redis"
     depends_on:
       redis:
