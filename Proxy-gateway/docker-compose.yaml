@@ -14,7 +14,7 @@ services:
       - proxy-net:
           ipv4_address: 1.0.0.1
 networks:
-      proxy-net:
+    proxy-net:
         driver: bridge
         ipam:
           config:
