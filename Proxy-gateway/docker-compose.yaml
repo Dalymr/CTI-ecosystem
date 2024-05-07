@@ -12,7 +12,7 @@ services:
       - ./volumes/shared:/mnt/shared
     networks:
       proxy-net:
-          ipv4_address: 1.0.0.1
+          ipv4_address: 1.0.0.2
 networks:
   net:
     driver: bridge
