@@ -3,7 +3,7 @@ services:
     image: hkdigital/debian-slim   # docker-hub
     # image: hkdigital-debian-slim   # local
 
-    restart: "on-failure" # "no"|always|on-failure|unless-stopped
+    restart: "" # "no"|always|on-failure|unless-stopped
 
     env_file:
       - .env
@@ -14,9 +14,9 @@ services:
       - proxy-net:
           ipv4_address: 1.0.0.1
 networks:
-    proxy-net:
-        driver: bridge
-        ipam:
-          config:
-            - subnet: 1.0.0.1/27
-              gateway : 1.0.0.1
+  proxy-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 1.0.0.1/27
+          gateway : 1.0.0.1
