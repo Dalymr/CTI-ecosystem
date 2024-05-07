@@ -165,8 +165,6 @@ services:
     networks:
       misp-net:
         ipv4_address: 10.0.0.33
-      internet-gateway:
-        ipv4_address: 10.0.0.42
       platform-connections:
         ipv4_address: 10.0.0.51
       
@@ -199,8 +197,6 @@ volumes:
     mysql_data:
 networks:
   misp-net:
-       external: true
-  internet-gateway:
        external: true
   platform-connections:
       external: true

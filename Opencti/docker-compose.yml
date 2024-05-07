@@ -104,8 +104,6 @@ services:
     networks:
       opencti-net:
         ipv4_address: 10.0.0.2
-      internet-gateway:
-        ipv4_address: 10.0.0.43
       platform-connections:
         ipv4_address: 10.0.0.50
   worker:
@@ -130,7 +128,6 @@ volumes:
 networks:
   opencti-net:
        external: true
-  internet-gateway:
-       external: true
   platform-connections:
       external: true
+ 
