@@ -15,7 +15,7 @@ services:
           ipv4_address: 10.0.0.109
 networks:
   net:
-    driver: bridge
+    driver: host
     ipam:
       config:
         - subnet: 10.0.0.96/28
