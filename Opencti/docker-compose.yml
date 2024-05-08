@@ -87,6 +87,12 @@ services:
       - SMTP__HOSTNAME=${SMTP_HOSTNAME}
       - SMTP__PORT=25
       - PROVIDERS__LOCAL__STRATEGY=LocalStrategy
+      - http_proxy="http://172.22.200.200:8080/"
+      - https_proxy="http://172.22.200.200:8080/"
+      - HTTP_PROXY="http://172.22.200.200:8080/"
+      - HTTPS_PROXY="http://172.22.200.200:8080/"
+      - no_proxy="localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.0/8"
+      - NO_PROXY="localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.0/8"
     ports:
       - "35000:30020"
     depends_on:
