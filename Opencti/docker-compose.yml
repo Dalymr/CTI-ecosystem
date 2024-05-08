@@ -103,7 +103,7 @@ services:
       expose-interfaces:
         ipv4_address: 10.0.0.65
       proxy-gateway_net:
-        ipv4_address: 1.0.0.2
+        ipv4_address: 1.0.0.3
   worker:
     image: opencti/worker:6.0.0
     environment:
