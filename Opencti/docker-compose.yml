@@ -100,8 +100,6 @@ services:
         ipv4_address: 10.0.0.2
       platform-connections:
         ipv4_address: 10.0.0.50
-      expose-interfaces:
-        ipv4_address: 10.0.0.65
       proxy-gateway_net:
         ipv4_address: 10.0.0.97
   worker:
@@ -127,8 +125,6 @@ networks:
   opencti-net:
        external: true
   platform-connections:
-      external: true
-  expose-interfaces:
       external: true
   proxy-gateway_net:
       external: true
