@@ -111,7 +111,7 @@ services:
       platform-connections:
         ipv4_address: 10.0.0.53
       proxy-gateway_net:
-        ipv4_address: 1.0.0.5
+        ipv4_address: 10.0.0.101
   connector-mitre:
     image: opencti/connector-mitre:6.0.2
     environment:
@@ -132,8 +132,7 @@ services:
       platform-connections:
         ipv4_address: 10.0.0.52
       proxy-gateway_net:
-        ipv4_address: 1.0.0.6
-      
+        ipv4_address: 10.0.0.100      
 networks:
   platform-connections:
       external: true
