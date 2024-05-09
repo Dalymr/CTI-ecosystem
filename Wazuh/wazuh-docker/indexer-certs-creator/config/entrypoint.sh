@@ -11,12 +11,6 @@ PASSWORD_TOOL=wazuh-passwords-tool.sh
 PACKAGES_URL=https://packages.wazuh.com/4.5/
 PACKAGES_DEV_URL=https://packages-dev.wazuh.com/4.5/
 
-http_proxy="http://172.22.200.200:8080/"
-https_proxy="http://172.22.200.200:8080/"
-HTTP_PROXY="http://172.22.200.200:8080/"
-HTTPS_PROXY="http://172.22.200.200:8080/"
-no_proxy="localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.0/8"
-NO_PROXY="localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.0/8"
 
 ## Check if the cert tool exists in S3 buckets
 CERT_TOOL_PACKAGES=$(curl --silent -I $PACKAGES_URL$CERT_TOOL | grep -E "^HTTP" | awk  '{print $2}')
