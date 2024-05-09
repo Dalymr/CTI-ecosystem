@@ -104,7 +104,6 @@ services:
     networks:
       opencti-net:
         ipv4_address: 10.0.0.2
-        gateway: 10.0.0.1
       platform-connections:
         ipv4_address: 10.0.0.50
       proxy-gateway_net:
