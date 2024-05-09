@@ -96,7 +96,7 @@ networks:
     ipam:
       config:
       - subnet: 10.0.0.112/29
-        gateway: 10.0.0.126
+        gateway: 10.0.0.118
 
     # uncomment to set MTU for swarm mode.
     # MTU should be whatever is your host's preferred MTU is.
