@@ -1,5 +1,5 @@
 services:
-  front:
+  shuffle-front:
     image: ghcr.io/shuffle/shuffle-frontend:latest
     container_name: shuffle-front
     hostname: shuffle-front
@@ -13,8 +13,8 @@ services:
       - BACKEND_HOSTNAME=shuffle-back
     restart: no
     depends_on:
-      - back
-  back:
+      - shuffle-back
+  shuffle-back:
     image: ghcr.io/shuffle/shuffle-backend:latest
     container_name: shuffle-back
     hostname: shuffle-back
