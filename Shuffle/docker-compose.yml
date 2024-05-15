@@ -75,6 +75,7 @@ services:
       - node.name=shuffle-opensearch
       - node.store.allow_mmap=false
       - discovery.seed_hosts=shuffle-opensearch
+    command: bash -c "mkdir -p /usr/share/opensearch/data/nodes && chown -R 1000:1000 /usr/share/opensearch/data"
     ulimits:
       memlock:
         soft: -1
