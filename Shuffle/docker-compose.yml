@@ -20,7 +20,7 @@ services:
     hostname: shuffle-back
     # Here for debugging:
     ports:
-      - "51010:50010"
+      - "50010:50010"
     networks:
       shuffle:
         ipv4_address: 10.0.0.114
