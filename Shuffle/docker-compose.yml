@@ -1,11 +1,11 @@
 services:
-  shuffle-front:
+  frontend:
     image: ghcr.io/shuffle/shuffle-frontend:latest
-    container_name: shuffle-front
-    hostname: shuffle-front
+    container_name: shuffle-frontend
+    hostname: shuffle-frontend
     ports:
-      - "11080:10080" #front http
-      - "11443:10443" #front https
+      - "11080:80" #front http
+      - "11443:443" #front https
     networks:
       shuffle:
         ipv4_address: 10.0.0.113
@@ -14,13 +14,13 @@ services:
     restart: no
     depends_on:
       - shuffle-back
-  shuffle-back:
+  backend:
     image: ghcr.io/shuffle/shuffle-backend:latest
-    container_name: shuffle-back
-    hostname: shuffle-back
+    container_name: shuffle-backend
+    hostname: shuffle-backend
     # Here for debugging:
     ports:
-      - "5001:5001"
+      - "${BACKEND_PORT}:5001"
     networks:
       shuffle:
         ipv4_address: 10.0.0.114
