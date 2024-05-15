@@ -78,7 +78,7 @@ services:
         soft: 65536 
         hard: 65536
     volumes:
-      - ${DB_LOCATION}:/usr/share/opensearch/data:z
+      - ${DB_LOCATION}:/usr/share/opensearch/data
     ports:
       - 9200:9200
     networks:
