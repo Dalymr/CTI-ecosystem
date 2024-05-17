@@ -50,6 +50,7 @@ services:
 
 
   misp-core:
+    restart: on-failure
     image: ghcr.io/misp/misp-docker/misp-core:latest
     build:
       context: core/.
@@ -161,6 +162,7 @@ services:
       
   
   misp-modules:
+    restart: on-failure
     image: ghcr.io/misp/misp-docker/misp-modules:latest
     build:
       context: modules/.
@@ -181,7 +183,7 @@ volumes:
     mysql_data:
 networks:
   net:
-    driver: overlay
+    driver: bridge
     internal: true
     ipam:
      config:

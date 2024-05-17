@@ -3,7 +3,7 @@ services:
     image: redis:7.2.4
     volumes:
       - redisdata:/data
-    restart: no
+    restart: always
     networks:
       net:
         ipv4_address: 10.0.0.1 
@@ -24,7 +24,6 @@ services:
     networks:
       net:
         ipv4_address: 10.0.0.2
-     
     ulimits:
       memlock:
         soft: -1
@@ -250,7 +249,7 @@ volumes:
   amqpdata:
 networks:
   net:
-    driver: overlay
+    driver: bridge 
     internal: true    
     ipam:
      config:
