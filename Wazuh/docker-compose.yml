@@ -95,8 +95,6 @@ services:
       - ./config/wazuh_dashboard/wazuh.yml:/usr/share/wazuh-dashboard/data/wazuh/config/wazuh.yml
       - wazuh-dashboard-config:/usr/share/wazuh-dashboard/data/wazuh/config
       - wazuh-dashboard-custom:/usr/share/wazuh-dashboard/plugins/wazuh/public/assets/custom
-    depends_on:
-      - wazuh.indexer
     links:
       - wazuh.indexer:wazuh.indexer
       - wazuh.manager:wazuh.manager
@@ -161,7 +159,6 @@ networks:
     ipam:
       config:
       - subnet: 10.0.0.24/29
-        gateway: 10.0.0.30
   platform_connections:
       external: true
   internet_gateway:

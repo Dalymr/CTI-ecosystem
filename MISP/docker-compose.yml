@@ -66,11 +66,6 @@ services:
           - PYPI_MIXBOX_VERSION=${PYPI_MIXBOX_VERSION}
           - PYPI_CYBOX_VERSION=${PYPI_CYBOX_VERSION}
           - PYPI_PYMISP_VERSION=${PYPI_PYMISP_VERSION}
-    depends_on:
-      redis:
-        condition: service_healthy
-      db:
-        condition: service_healthy
     healthcheck:
       test: curl -ks https://localhost/users/login > /dev/null || exit 1
       interval: 2s
@@ -175,9 +170,6 @@ services:
         - LIBFAUP_COMMIT=${LIBFAUP_COMMIT:?Missing .env file, see README.md for instructions}
     environment:
       - "REDIS_BACKEND=redis"
-    depends_on:
-      redis:
-        condition: service_healthy
     networks:
       net:
         ipv4_address: 10.0.0.36

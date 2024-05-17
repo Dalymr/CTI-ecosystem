@@ -89,11 +89,6 @@ services:
       - PROVIDERS__LOCAL__STRATEGY=LocalStrategy
     ports:
       - "35000:30020"
-    depends_on:
-      - redis
-      - elasticsearch
-      - minio
-      - rabbitmq
     restart: always
     networks:
       net:
@@ -108,8 +103,6 @@ services:
       - OPENCTI_URL=http://opencti:30020
       - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
       - WORKER_LOG_LEVEL=info
-    depends_on:
-      - opencti
     deploy:
       mode: replicated
       replicas: 3
@@ -262,7 +255,6 @@ networks:
     ipam:
      config:
        - subnet: 10.0.0.0/28
-         gateway: 10.0.0.14
   platform_connections:
       external: true
   internet_gateway:
