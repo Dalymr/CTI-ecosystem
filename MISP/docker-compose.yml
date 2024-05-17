@@ -181,7 +181,7 @@ volumes:
     mysql_data:
 networks:
   net:
-    driver: bridge
+    driver: overlay
     internal: true
     ipam:
      config:

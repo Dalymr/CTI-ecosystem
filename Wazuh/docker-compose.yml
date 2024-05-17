@@ -154,7 +154,7 @@ volumes:
 
 networks:
   net:
-    driver: bridge
+    driver: overlay
     internal: true
     ipam:
       config:
