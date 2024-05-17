@@ -100,11 +100,11 @@ services:
 networks:
   net:
     driver: bridge
+    internal: true
     ipam:
       config:
       - subnet: 10.0.0.32/29
         gateway: 10.0.0.46
-        internal: true
   platform_connections:
       external: true
   internet_gateway:
