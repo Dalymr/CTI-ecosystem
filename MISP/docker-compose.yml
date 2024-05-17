@@ -195,7 +195,6 @@ networks:
     ipam:
      config:
        - subnet: 10.0.0.16/29
-       - gateway: 10.0.0.22
   platform_connections:
       external: true
   internet_gateway:
