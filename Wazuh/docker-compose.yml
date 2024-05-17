@@ -157,11 +157,11 @@ volumes:
 networks:
   net:
     driver: bridge
+    internal: true
     ipam:
       config:
       - subnet: 10.0.0.24/29
         gateway: 10.0.0.30
-        internal: true
   platform_connections:
       external: true
   internet_gateway:
