@@ -12,8 +12,6 @@ services:
     environment:
       - BACKEND_HOSTNAME=shuffle-back
     restart: no
-    depends_on:
-      - shuffle-back
   shuffle-back:
     image: ghcr.io/shuffle/shuffle-backend:latest
     container_name: shuffle-back
@@ -104,7 +102,6 @@ networks:
     ipam:
       config:
       - subnet: 10.0.0.32/29
-        gateway: 10.0.0.46
   platform_connections:
       external: true
   internet_gateway:
