@@ -173,7 +173,7 @@ services:
     networks:
       net:
         ipv4_address: 10.0.0.36
-      proxy-gateway_net:
+      internet_gateway:
         ipv4_address: 10.0.0.69
 
 
