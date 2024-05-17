@@ -10,8 +10,8 @@ services:
       - "SMARTHOST_PASSWORD=${SMARTHOST_PASSWORD}"
       - "SMARTHOST_ALIASES=${SMARTHOST_ALIASES}"
     networks:
-      misp-net:
-        ipv4_address: 10.0.0.38
+      net:
+        ipv4_address: 10.0.0.17
 
   redis:
     image: valkey/valkey:7.2
@@ -22,8 +22,8 @@ services:
       retries: 3
       start_period: 30s
     networks:
-      misp-net:
-        ipv4_address: 10.0.0.34
+      net:
+        ipv4_address: 10.0.0.18
 
   db:
     # We use MariaDB because it supports ARM and has the expected collations
@@ -35,8 +35,8 @@ services:
       - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-password}"
       - "MYSQL_DATABASE=${MYSQL_DATABASE:-misp}"
     networks:
-      misp-net:
-        ipv4_address: 10.0.0.35
+      net:
+        ipv4_address: 10.0.0.19
     volumes:
       - mysql_data:/var/lib/mysql
     cap_add:
@@ -156,12 +156,12 @@ services:
       - "MYSQL_PASSWORD=${MYSQL_PASSWORD:-example}"
       - "MYSQL_DATABASE=${MYSQL_DATABASE:-misp}"
     networks:
-      misp-net:
-        ipv4_address: 10.0.0.33
-      platform-connections:
-        ipv4_address: 10.0.0.51
-      proxy-gateway_net:
-        ipv4_address: 10.0.0.99
+      net:
+        ipv4_address: 10.0.0.20
+      platform_connections:
+        ipv4_address: 10.0.0.50
+      internet_gateway:
+        ipv4_address: 10.0.0.68
 
       
   
@@ -179,18 +179,23 @@ services:
       redis:
         condition: service_healthy
     networks:
-      misp-net:
+      net:
         ipv4_address: 10.0.0.36
       proxy-gateway_net:
-        ipv4_address: 10.0.0.98
+        ipv4_address: 10.0.0.69
 
 
 volumes:
     mysql_data:
 networks:
-  misp-net:
-       external: true
-  platform-connections:
+  net:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.0.0.16/29
+         gateway: 10.0.0.22
+         internal: true
+  platform_connections:
       external: true
-  proxy-gateway_net:
+  internet_gateway:
       external: true
