@@ -1,3 +1,4 @@
+version: '3.0'
 services:
   # This is capable to relay via gmail, Amazon SES, or generic relays
   # See: https://hub.docker.com/r/ixdotai/smtp
@@ -194,7 +195,7 @@ networks:
     ipam:
      config:
        - subnet: 10.0.0.16/29
-         gateway: 10.0.0.22
+       - gateway: 10.0.0.22
   platform_connections:
       external: true
   internet_gateway:
