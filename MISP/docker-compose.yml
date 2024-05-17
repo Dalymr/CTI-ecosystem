@@ -11,7 +11,7 @@ services:
       - "SMARTHOST_ALIASES=${SMARTHOST_ALIASES}"
     networks:
       net:
-        ipv4_address: 10.0.0.17
+        ipv4_address: 10.0.0.81
 
   redis:
     image: valkey/valkey:7.2
@@ -23,7 +23,7 @@ services:
       start_period: 30s
     networks:
       net:
-        ipv4_address: 10.0.0.18
+        ipv4_address: 10.0.0.82
 
   db:
     # We use MariaDB because it supports ARM and has the expected collations
@@ -153,7 +153,7 @@ services:
       - "MYSQL_DATABASE=${MYSQL_DATABASE:-misp}"
     networks:
       net:
-        ipv4_address: 10.0.0.20
+        ipv4_address: 10.0.0.83
       platform_connections:
         ipv4_address: 10.0.0.50
       internet_gateway:
@@ -174,7 +174,7 @@ services:
       - "REDIS_BACKEND=redis"
     networks:
       net:
-        ipv4_address: 10.0.0.36
+        ipv4_address: 10.0.0.84
       internet_gateway:
         ipv4_address: 10.0.0.69
 
@@ -187,7 +187,7 @@ networks:
     internal: true
     ipam:
      config:
-       - subnet: 10.0.0.16/29
+       - subnet: 10.0.0.80/29
   platform_connections:
       external: true
   internet_gateway:

@@ -253,7 +253,7 @@ networks:
     internal: true    
     ipam:
      config:
-       - subnet: 10.0.0.0/28
+       - subnet: 10.0.0.0/27
   platform_connections:
       external: true
   internet_gateway:
