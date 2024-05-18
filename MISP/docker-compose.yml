@@ -152,9 +152,9 @@ services:
       - "MYSQL_PASSWORD=${MYSQL_PASSWORD:-example}"
       - "MYSQL_DATABASE=${MYSQL_DATABASE:-misp}"
     networks:
-      net:
-        ipv4_address: 10.0.0.84
-      mynetwork: {}
+      - net:
+          ipv4_address: 10.0.0.84
+      - mynetwork
 
 
       
