@@ -183,6 +183,3 @@ networks:
     ipam:
      config:
        - subnet: 10.0.0.80/29
-  mynetwork:
-    external: true
-    name: host
