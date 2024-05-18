@@ -101,7 +101,8 @@ services:
     networks:
       net:
         ipv4_address: 10.0.0.92
-
+      platform_connections:
+        ipv4_address: 10.0.0.53
   wazuh-agent-1:
     image: hkdigital/debian-slim   # docker-hub
     # image: hkdigital-debian-slim   # local
