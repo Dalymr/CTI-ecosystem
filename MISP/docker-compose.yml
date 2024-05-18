@@ -152,9 +152,9 @@ services:
       - "MYSQL_PASSWORD=${MYSQL_PASSWORD:-example}"
       - "MYSQL_DATABASE=${MYSQL_DATABASE:-misp}"
     networks:
-      - net:
+      net:
           ipv4_address: 10.0.0.84
-      - mynetwork
+      mynetwork: {}
 
 
       
@@ -184,7 +184,6 @@ networks:
     ipam:
      config:
        - subnet: 10.0.0.80/29
-  networks:
   mynetwork:
     external: true
     name: host
