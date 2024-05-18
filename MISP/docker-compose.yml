@@ -154,8 +154,7 @@ services:
     networks:
       net:
         ipv4_address: 10.0.0.83
-      platform_connections: host 
-      internet_gateway: host
+      mynetwork: {}
 
       
   
@@ -173,7 +172,7 @@ services:
     networks:
       net:
         ipv4_address: 10.0.0.84
-      internet_gateway: host
+      mynetwork: {}
 
 
 volumes:
@@ -185,3 +184,6 @@ networks:
     ipam:
      config:
        - subnet: 10.0.0.80/29
+  mynetwork:
+    external: true
+    name: host
