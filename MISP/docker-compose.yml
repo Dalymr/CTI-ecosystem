@@ -155,8 +155,7 @@ services:
       - net:
          ipv4_address: 10.0.0.83
       - platform_connections
-      - internet_gateway:
-         ipv4_address: 10.0.0.68
+      - internet_gateway
 
       
   
