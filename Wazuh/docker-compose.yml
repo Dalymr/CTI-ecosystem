@@ -109,7 +109,7 @@ services:
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
 
     env_file:
-      - .env
+      - agent.env
 
     volumes:
       - ./volumes/shared:/mnt/shared
@@ -125,7 +125,7 @@ services:
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
 
     env_file:
-      - .env
+      - agent.env
 
     volumes:
       - ./volumes/shared:/mnt/shared
