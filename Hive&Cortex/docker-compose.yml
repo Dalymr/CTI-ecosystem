@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   cassandra:
     container_name: cassandra
@@ -14,7 +12,7 @@ services:
       - ./cassandra/data:/var/lib/cassandra/data
     networks:
       net:
-          ipv4_address: 10.0.0.44
+          ipv4_address: 10.0.0.41
 
   elasticsearch:
     container_name: elasticsearch
@@ -39,7 +37,7 @@ services:
       - ./elasticsearch/logs:/usr/share/elasticsearch/logs
     networks:
       net:
-          ipv4_address: 10.0.0.43
+          ipv4_address: 10.0.0.42
   
   cortex:
     container_name: cortex
@@ -47,7 +45,7 @@ services:
     environment:
       - 'JOB_DIRECTORY=/opt/cortex/jobs'
     ports:
-      - '0.0.0.0:9001:9001'
+      - '0.0.0.0:19001:9001'
     volumes:
       - ./cortex/application.conf:/etc/cortex/application.conf
       - '/var/run/docker.sock:/var/run/docker.sock'
@@ -58,16 +56,16 @@ services:
     privileged: true
     networks:
       net:
-          ipv4_address: 10.0.0.42
+          ipv4_address: 10.0.0.43
       platform_connections:
-          ipv4_address: 10.0.0.52    
+          ipv4_address: 10.0.0.53 
   
   thehive:
     container_name: thehive
     image: 'thehiveproject/thehive4:latest'
     restart: unless-stopped
     ports:
-      - '0.0.0.0:9000:9000'
+      - '0.0.0.0:10900:9000'
     volumes:
       - ./thehive/application.conf:/etc/thehive/application.conf
       - ./thehive/data:/opt/thp/thehive/data
@@ -77,9 +75,9 @@ services:
       --cortex-keys ${CORTEX_KEY}
     networks:
       net:
-          ipv4_address: 10.0.0.41
+          ipv4_address: 10.0.0.44
       platform_connections:
-          ipv4_address: 10.0.0.53    
+          ipv4_address: 10.0.0.54 
 networks:
   net:
     driver: bridge

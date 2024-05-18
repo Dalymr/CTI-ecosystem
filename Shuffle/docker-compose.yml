@@ -8,7 +8,7 @@ services:
       - "11443:443" #front https
     networks:
       net:
-        ipv4_address: 10.0.0.33
+        ipv4_address: 10.0.0.34
     environment:
       - BACKEND_HOSTNAME=shuffle-back
     restart: no
@@ -21,7 +21,7 @@ services:
       - "5001:5001"
     networks:
       net:
-        ipv4_address: 10.0.0.34
+        ipv4_address: 10.0.0.35
       platform_connections:
           ipv4_address: 10.0.0.55
     volumes:
@@ -40,11 +40,11 @@ services:
     hostname: shuffle-orborus
     networks:
       net:
-        ipv4_address: 10.0.0.35
+        ipv4_address: 10.0.0.36
       platform_connections:
-        ipv4_address: 10.0.0.54   
+        ipv4_address: 10.0.0.56
       internet_gateway:
-        ipv4_address: 10.0.0.72
+        ipv4_address: 10.0.0.74
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
@@ -90,10 +90,10 @@ services:
     volumes:
       - ${DB_LOCATION}:/usr/share/opensearch/data:z
     ports:
-      - 9200:9200
+      - 19200:9200
     networks:
       net:
-        ipv4_address: 10.0.0.36
+        ipv4_address: 10.0.0.37
     restart: no
 networks:
   net:
