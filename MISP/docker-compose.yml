@@ -74,8 +74,8 @@ services:
       retries: 3
       start_period: 30s
     ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
+      - "80:80"
+      - "443:443"
     volumes:
       - "./configs/:/var/www/MISP/app/Config/"
       - "./logs/:/var/www/MISP/app/tmp/logs/"
@@ -153,8 +153,11 @@ services:
       - "MYSQL_DATABASE=${MYSQL_DATABASE:-misp}"
     networks:
       net:
-          ipv4_address: 10.0.0.84
-
+        ipv4_address: 10.0.0.84
+      platform_connections:
+        ipv4_address: 10.0.0.50
+      internet_gateway:
+        ipv4_address: 10.0.0.68
 
       
   
@@ -172,6 +175,8 @@ services:
     networks:
       net:
         ipv4_address: 10.0.0.85
+      internet_gateway:
+        ipv4_address: 10.0.0.69
 
 
 volumes:
@@ -183,3 +188,7 @@ networks:
     ipam:
      config:
        - subnet: 10.0.0.80/29
+  platform_connections:
+      external: true
+  internet_gateway:
+      external: true
