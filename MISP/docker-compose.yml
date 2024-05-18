@@ -36,7 +36,7 @@ services:
       - "MYSQL_DATABASE=${MYSQL_DATABASE:-misp}"
     networks:
       net:
-        ipv4_address: 10.0.0.19
+        ipv4_address: 10.0.0.83
     volumes:
       - mysql_data:/var/lib/mysql
     cap_add:
@@ -153,7 +153,7 @@ services:
       - "MYSQL_DATABASE=${MYSQL_DATABASE:-misp}"
     networks:
       net:
-        ipv4_address: 10.0.0.83
+        ipv4_address: 10.0.0.84
       mynetwork: {}
 
       
@@ -171,7 +171,7 @@ services:
       - "REDIS_BACKEND=redis"
     networks:
       net:
-        ipv4_address: 10.0.0.84
+        ipv4_address: 10.0.0.85
       mynetwork: {}
 
 
