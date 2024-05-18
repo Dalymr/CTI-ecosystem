@@ -122,7 +122,7 @@ services:
   wazuh-agent-2:
     image: hkdigital/debian-slim   # docker-hub
     # image: hkdigital-debian-slim   # local
-    hostname: agent1
+    hostname: agent2
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
 
     env_file:
