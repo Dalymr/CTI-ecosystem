@@ -15,29 +15,30 @@ services:
           ipv4_address: 10.0.0.42
 
   elasticsearch:
-    container_name: elasticsearch
-    image: elasticsearch:7.11.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
     environment:
-      - http.host=0.0.0.0
+      # Comment-out the line below for a cluster of multiple nodes
       - discovery.type=single-node
-      - cluster.name=hive
-      - script.allowed_types= inline
-      - thread_pool.search.queue_size=100000
-      - thread_pool.write.queue_size=10000
-      - gateway.recover_after_nodes=1
+      # Uncomment the line below below for a cluster of multiple nodes
+      # - cluster.name=docker-cluster
+      - xpack.ml.enabled=false
       - xpack.security.enabled=false
-      - bootstrap.memory_lock=true
-      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
+      - thread_pool.search.queue_size=5000
+      - logger.org.elasticsearch.discovery="ERROR"
+      - "ES_JAVA_OPTS=-Xms1024 -Xmx1024"
+    networks:
+      net:
+        ipv4_address: 10.0.0.43
     ulimits:
+      memlock:
+        soft: -1
+        hard: -1
       nofile:
         soft: 65536
         hard: 65536
-    volumes:
-      - ./elasticsearch/data:/usr/share/elasticsearch/data
-      - ./elasticsearch/logs:/usr/share/elasticsearch/logs
-    networks:
-      net:
-          ipv4_address: 10.0.0.43
+    restart: always
   
   cortex:
     container_name: cortex
