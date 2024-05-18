@@ -43,12 +43,13 @@ services:
     container_name: cortex
     image: thehiveproject/cortex:latest
     environment:
+      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.0/16,10.0.0.40/29
       - 'JOB_DIRECTORY=/opt/cortex/jobs'
       - http_proxy=http://172.22.200.200:8080/
       - https_proxy=http://172.22.200.200:8080/
-      - no_proxy=localhost,::1,172.0.0.1/8,127.0.0.1/8,10.0.0.0/16,10.0.0.40/29
+
     ports:
-      - '0.0.0.0:19001:9001'
+      - '19001:9001'
     volumes:
       - ./cortex/application.conf:/etc/cortex/application.conf
       - '/var/run/docker.sock:/var/run/docker.sock'
