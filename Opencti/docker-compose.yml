@@ -93,9 +93,9 @@ services:
       net:
         ipv4_address: 10.0.0.5
       platform_connections:
-        ipv4_address: 10.0.0.49
+        ipv4_address: 10.0.0.51
       internet_gateway:
-        ipv4_address: 10.0.0.65
+        ipv4_address: 10.0.0.66
   worker:
     image: opencti/worker:6.0.0
     environment:
@@ -220,7 +220,7 @@ services:
       net:
         ipv4_address: 10.0.0.11
       internet_gateway:
-        ipv4_address: 10.0.0.66
+        ipv4_address: 10.0.0.67
   connector-mitre:
     image: opencti/connector-mitre:6.0.2
     environment:
@@ -241,7 +241,7 @@ services:
       net:
         ipv4_address: 10.0.0.12
       internet_gateway:
-        ipv4_address: 10.0.0.67   
+        ipv4_address: 10.0.0.68
 volumes:
   esdata:
   s3data:

@@ -156,7 +156,7 @@ services:
       platform_connections:
         ipv4_address: 10.0.0.50
       internet_gateway:
-        ipv4_address: 10.0.0.68
+        ipv4_address: 10.0.0.69
 
       
   
@@ -175,7 +175,7 @@ services:
       net:
         ipv4_address: 10.0.0.85
       internet_gateway:
-        ipv4_address: 10.0.0.69
+        ipv4_address: 10.0.0.70
 
 
 volumes:
