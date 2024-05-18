@@ -45,7 +45,7 @@ services:
       net:
         ipv4_address: 10.0.0.90
       platform_connections:
-        ipv4_address: 10.0.0.51
+        ipv4_address: 10.0.0.52
   wazuh.indexer:
     image: wazuh/wazuh-indexer:4.5.4
     hostname: wazuh.indexer
