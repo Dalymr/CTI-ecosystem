@@ -50,7 +50,7 @@ services:
       - 'JOB_DIRECTORY=/opt/cortex/jobs'
 
     ports:
-      - '0.0.0.0:9001:9001'
+      - '19001:9001'
     volumes:
       - ./cortex/application.conf:/etc/cortex/application.conf
       - '/var/run/docker.sock:/var/run/docker.sock'
@@ -72,7 +72,7 @@ services:
     image: 'thehiveproject/thehive4:latest'
     restart: unless-stopped
     ports:
-      - '0.0.0.0:9001:9000'
+      - '0.0.0.0:10000:9000'
     volumes:
       - ./thehive/application.conf:/etc/thehive/application.conf
       - ./thehive/data:/opt/thp/thehive/data
