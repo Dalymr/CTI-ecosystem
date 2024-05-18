@@ -154,6 +154,7 @@ services:
     networks:
       net:
         ipv4_address: 10.0.0.84
+      mynetwork: {}
 
 
       
@@ -183,3 +184,7 @@ networks:
     ipam:
      config:
        - subnet: 10.0.0.80/29
+  networks:
+  mynetwork:
+    external: true
+    name: host
