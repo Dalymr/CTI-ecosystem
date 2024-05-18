@@ -154,8 +154,7 @@ services:
     networks:
       - net:
          ipv4_address: 10.0.0.83
-      - platform_connections
-      - internet_gateway
+      - host
 
       
   
@@ -173,7 +172,7 @@ services:
     networks:
       - net:
           ipv4_address: 10.0.0.84
-      - internet_gateway
+      - host
 
 
 volumes:
@@ -185,7 +184,3 @@ networks:
     ipam:
      config:
        - subnet: 10.0.0.80/29
-  platform_connections:
-      driver: host
-  internet_gateway:
-      driver: host
