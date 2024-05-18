@@ -12,7 +12,7 @@ services:
       - ./cassandra/data:/var/lib/cassandra/data
     networks:
       net:
-          ipv4_address: 10.0.0.41
+          ipv4_address: 10.0.0.42
 
   elasticsearch:
     container_name: elasticsearch
@@ -37,7 +37,7 @@ services:
       - ./elasticsearch/logs:/usr/share/elasticsearch/logs
     networks:
       net:
-          ipv4_address: 10.0.0.42
+          ipv4_address: 10.0.0.43
   
   cortex:
     container_name: cortex
@@ -56,7 +56,7 @@ services:
     privileged: true
     networks:
       net:
-          ipv4_address: 10.0.0.43
+          ipv4_address: 10.0.0.44
       platform_connections:
           ipv4_address: 10.0.0.53 
   
@@ -75,7 +75,7 @@ services:
       --cortex-keys ${CORTEX_KEY}
     networks:
       net:
-          ipv4_address: 10.0.0.44
+          ipv4_address: 10.0.0.45
       platform_connections:
           ipv4_address: 10.0.0.54 
 networks:
