@@ -152,12 +152,10 @@ services:
       - "MYSQL_PASSWORD=${MYSQL_PASSWORD:-example}"
       - "MYSQL_DATABASE=${MYSQL_DATABASE:-misp}"
     networks:
-      net:
-        ipv4_address: 10.0.0.83
-      platform_connections:
-        ipv4_address: 10.0.0.50
-      internet_gateway:
-        ipv4_address: 10.0.0.68
+      - net:
+         ipv4_address: 10.0.0.83
+      - platform_connections
+      - internet_gateway
 
       
   
@@ -173,10 +171,9 @@ services:
     environment:
       - "REDIS_BACKEND=redis"
     networks:
-      net:
-        ipv4_address: 10.0.0.84
-      internet_gateway:
-        ipv4_address: 10.0.0.69
+      - net:
+          ipv4_address: 10.0.0.84
+      - internet_gateway
 
 
 volumes:
@@ -189,6 +186,6 @@ networks:
      config:
        - subnet: 10.0.0.80/29
   platform_connections:
-      external: true
+      driver: host
   internet_gateway:
-      external: true
+      driver: host
