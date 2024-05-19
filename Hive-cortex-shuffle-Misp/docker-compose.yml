@@ -82,16 +82,16 @@ services:
     restart: unless-stopped
 
   db:
-    image: mysql:latest
-    container_name: db
-    restart: unless-stopped
+    # We use MariaDB because it supports ARM and has the expected collations
+    image: mariadb:10.11
+    restart: always
     environment:
-      - "MYSQL_USER=misp"
-      - "MYSQL_PASSWORD=example"
-      - "MYSQL_ROOT_PASSWORD=password"
-      - "MYSQL_DATABASE=misp"
+      - "MYSQL_USER=${MYSQL_USER:-misp}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD:-example}"
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-password}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE:-misp}"
     volumes:
-      - ./vol/mysql:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
 
   misp:
     image: coolacid/misp-docker:core-latest
@@ -191,5 +191,8 @@ services:
     restart: unless-stopped
     volumes:
       - ./vol/shuffle-database:/etc/shuffle
+
+volumes:
+    mysql_data:
 
 
