@@ -96,18 +96,6 @@ services:
         ipv4_address: 10.0.0.51
       internet_gateway:
         ipv4_address: 10.0.0.66
-  worker:
-    image: opencti/worker:6.0.0
-    environment:
-      - OPENCTI_URL=http://opencti:30020
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      - WORKER_LOG_LEVEL=info
-    deploy:
-      mode: replicated
-      replicas: 3
-    restart: always
-    networks:
-      - net
   connector-export-file-stix:
     image: opencti/connector-export-file-stix:6.0.0
     environment:
@@ -242,6 +230,18 @@ services:
         ipv4_address: 10.0.0.12
       internet_gateway:
         ipv4_address: 10.0.0.68
+  worker:
+    image: opencti/worker:6.0.0
+    environment:
+      - OPENCTI_URL=http://opencti:30020
+      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+      - WORKER_LOG_LEVEL=info
+    deploy:
+      mode: replicated
+      replicas: 3
+    restart: always
+    networks:
+      - net
 volumes:
   esdata:
   s3data:
