@@ -1,80 +1,90 @@
-version: "3.8"
+version: "3"
 services:
-  elasticsearch:
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:7.11.1'
-    container_name: elasticsearch
-    restart: unless-stopped
-    ports:
-      - '0.0.0.0:9200:9200'
-    environment:
-      - http.host=0.0.0.0
-      - discovery.type=single-node
-      - cluster.name=hive
-      - script.allowed_types= inline
-      - thread_pool.search.queue_size=100000
-      - thread_pool.write.queue_size=10000
-      - gateway.recover_after_nodes=1
-      - xpack.security.enabled=false
-      - bootstrap.memory_lock=true
-      - 'ES_JAVA_OPTS=-Xms256m -Xmx256m'
-    ulimits:
-      nofile:
-        soft: 65536
-        hard: 65536
-    volumes:
-      - ./vol/elasticsearch_data:/usr/share/elasticsearch/data
-      - ./vol/elasticsearch_logs:/usr/share/elasticsearch/logs
-
-  kibana:
-    image: 'docker.elastic.co/kibana/kibana:7.11.1'
-    container_name: kibana
-    restart: unless-stopped
-    depends_on:
-      - elasticsearch
-    ports:
-      - '5601:5601'
-
-  cortex:
-    image: 'thehiveproject/cortex:latest'
-    container_name: cortex
-    restart: unless-stopped
-    volumes:
-      - ./cortex/application.conf:/etc/cortex/application.conf
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /tmp:/tmp
-    environment:
-      - http_proxy=172.22.200.200:8080
-      - https_proxy=172.22.200.200:8080   
-    depends_on:
-      - elasticsearch
-    ports:
-      - '0.0.0.0:9001:9001'
-
-  cassandra:
-    image: cassandra:3.11
-    container_name: cassandra
-    restart: unless-stopped
-    hostname: cassandra
-    environment:
-      - MAX_HEAP_SIZE=1G
-      - HEAP_NEWSIZE=1G
-      - CASSANDRA_CLUSTER_NAME=thp
-    volumes:
-      - ./vol/cassandra-data:/var/lib/cassandra/data
-
   thehive:
-    image: 'custom-thehive:4.1.0-1'
-    container_name: thehive
-    restart: unless-stopped
+    image: strangebee/thehive:5.2
     depends_on:
       - cassandra
+      - elasticsearch
+      - minio
+      - cortex
+    mem_limit: 1500m
     ports:
-      - '0.0.0.0:9000:9000'
+      - "9000:9000"
+    environment:
+      - JVM_OPTS="-Xms1024M -Xmx1024M"
+    command:
+      - --secret
+      - "mySecretForTheHive"
+      - "--cql-hostnames"
+      - "cassandra"
+      - "--index-backend"
+      - "elasticsearch"
+      - "--es-hostnames"
+      - "elasticsearch"
+      - "--s3-endpoint"
+      - "http://minio:9000"
+      - "--s3-access-key"
+      - "minioadmin"
+      - "--s3-secret-key"
+      - "minioadmin"
+      - "--s3-bucket"
+      - "thehive"
+      - "--s3-use-path-access-style"
+      - "--cortex-hostnames"
+      - "cortex"
+      - "--cortex-keys"
+      # put cortex api key once cortex is bootstraped
+      - "<cortex_api_key>"
+
+  cassandra:
+    image: 'cassandra:4'
+    mem_limit: 1600m
+    ports:
+      - "9042:9042"
+    environment:
+      - MAX_HEAP_SIZE=1024M
+      - HEAP_NEWSIZE=1024M
+      - CASSANDRA_CLUSTER_NAME=TheHive
     volumes:
-      - ./thehive/application.conf:/etc/thehive/application.conf
-      - thehive-data:/opt/thp/thehive/data
-      - thehive-index:/opt/thp/thehive/index
-    command: '--no-config --no-config-secret'
+      - cassandradata:/var/lib/cassandra
+    restart: on-failure
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.12
+    mem_limit: 1500m
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    volumes:
+      - elasticsearchdata:/usr/share/elasticsearch/data
+
+  minio:
+    image: quay.io/minio/minio
+    mem_limit: 512m
+    command: ["minio", "server", "/data", "--console-address", ":9090"]
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    ports:
+      - "9090:9090"
+    volumes:
+      - "miniodata:/data"
+
+  cortex:
+    image: thehiveproject/cortex:3.1.7
+    depends_on:
+      - elasticsearch
+    environment:
+      - job_directory=/tmp/cortex-jobs
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/cortex-jobs:/tmp/cortex-jobs
+    ports:
+      - "9001:9001"
+
+
 
   redis:
     image: redis:latest
@@ -155,6 +165,7 @@ services:
       - ./vol/shuffle-database:/etc/shuffle
 
 volumes:
-  thehive-data:
-  thehive-index:
+  miniodata:
+  cassandradata:
+  elasticsearchdata:
 
