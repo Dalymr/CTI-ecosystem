@@ -168,13 +168,13 @@ services:
   velociraptor:
     image: wlambert/velociraptor  
     container_name: velociraptor
+    hostname: velociraptor
   #build:
     #  context: ./
     #  dockerfile: Dockerfile
     volumes:
       - ./velociraptor:/velociraptor/:rw
     environment:
-      - hostname =velociraptor
       - VELOX_USER=admin
       - VELOX_PASSWORD=admin
       - VELOX_ROLE=administrator
