@@ -73,16 +73,20 @@ services:
       - "miniodata:/data"
 
   cortex:
-    image: thehiveproject/cortex:3.1.0
-    environment:
-      - job_directory=${job_directory}
+    image: 'thehiveproject/cortex:3.1.0'
+    container_name: cortex
+    restart: unless-stopped
     volumes:
+      - ./cortex/application.conf:/etc/cortex/application.conf
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${job_directory}:${job_directory}
+      - /tmp:/tmp
+    environment:
+      - http_proxy=172.22.0.0:8080
+      - https_proxy=172.22.0.0:8080
     depends_on:
       - elasticsearch
     ports:
-      - "0.0.0.0:9001:9001"
+      - '0.0.0.0:9001:9001'
 
 
 
