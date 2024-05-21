@@ -174,11 +174,12 @@ services:
     volumes:
       - ./velociraptor:/velociraptor/:rw
     environment:
-      - VELOX_USER=${VELOX_USER}
-      - VELOX_PASSWORD=${VELOX_PASSWORD}
-      - VELOX_ROLE=${VELOX_ROLE}
-      - VELOX_SERVER_URL=${VELOX_SERVER_URL}
-      - VELOX_FRONTEND_HOSTNAME=${VELOX_FRONTEND_HOSTNAME}
+      - VELOX_USER=admin
+      - VELOX_PASSWORD=admin
+      - VELOX_ROLE=administrator
+      - VELOX_SERVER_URL=https://VelociraptorServer:7000/
+      - VELOX_FRONTEND_HOSTNAME=VelociraptorServer
+
     ports:
       - "7000:7000"
       - "8001:8001"
