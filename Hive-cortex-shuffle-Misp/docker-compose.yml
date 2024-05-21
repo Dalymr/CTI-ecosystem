@@ -164,6 +164,27 @@ services:
     volumes:
       - ./vol/shuffle-database:/etc/shuffle
 
+
+  velociraptor:
+    container_name: velociraptor
+    image: wlambert/velociraptor
+    #build:
+    #  context: ./
+    #  dockerfile: Dockerfile
+    volumes:
+      - ./velociraptor:/velociraptor/:rw
+    environment:
+      - VELOX_USER=${VELOX_USER}
+      - VELOX_PASSWORD=${VELOX_PASSWORD}
+      - VELOX_ROLE=${VELOX_ROLE}
+      - VELOX_SERVER_URL=${VELOX_SERVER_URL}
+      - VELOX_FRONTEND_HOSTNAME=${VELOX_FRONTEND_HOSTNAME}
+    ports:
+      - "7000:7000"
+      - "8001:8001"
+      - "8889:8889"
+    restart: unless-stopped
+
 volumes:
   miniodata:
   cassandradata:
