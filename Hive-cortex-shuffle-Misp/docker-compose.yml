@@ -166,23 +166,21 @@ services:
 
 
   velociraptor:
-    image: wlambert/velociraptor  
     container_name: velociraptor
-    hostname: velociraptor
-  #build:
+    image: wlambert/velociraptor
+    #build:
     #  context: ./
     #  dockerfile: Dockerfile
     volumes:
       - ./velociraptor:/velociraptor/:rw
     environment:
-      - VELOX_USER=admin
-      - VELOX_PASSWORD=admin
-      - VELOX_ROLE=administrator
-      - VELOX_SERVER_URL=https://velociraptor:8000/
-      - VELOX_FRONTEND_HOSTNAME=velociraptor
-
+      - VELOX_USER=${VELOX_USER}
+      - VELOX_PASSWORD=${VELOX_PASSWORD}
+      - VELOX_ROLE=${VELOX_ROLE}
+      - VELOX_SERVER_URL=${VELOX_SERVER_URL}
+      - VELOX_FRONTEND_HOSTNAME=${VELOX_FRONTEND_HOSTNAME}
     ports:
-      - "8000:8000"
+      - "10000:8000"
       - "8001:8001"
       - "8889:8889"
     restart: unless-stopped
