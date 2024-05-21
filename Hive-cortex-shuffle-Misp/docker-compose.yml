@@ -63,7 +63,7 @@ services:
       - ./vol/cassandra-data:/var/lib/cassandra/data
 
   thehive:
-    image: 'custom-thehive:4.1.0-1'
+    image: 'thehiveproject/thehive4:latest'
     container_name: thehive
     restart: unless-stopped
     depends_on:
@@ -72,6 +72,8 @@ services:
       - '0.0.0.0:9000:9000'
     volumes:
       - ./thehive/application.conf:/etc/thehive/application.conf
+      - ./vol/data:/opt/data
+      - ./vol/index:/opt/index
     command: '--no-config --no-config-secret'
 
   redis:
