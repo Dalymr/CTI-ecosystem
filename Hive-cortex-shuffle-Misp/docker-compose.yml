@@ -16,7 +16,7 @@ services:
       - gateway.recover_after_nodes=1
       - xpack.security.enabled=false
       - bootstrap.memory_lock=true
-      - 'ES_JAVA_OPTS=-Xms256m -Xmx1Gm'
+      - 'ES_JAVA_OPTS=-Xms1G -Xmx1G'
     ulimits:
       nofile:
         soft: 65536
@@ -43,8 +43,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp:/tmp
     environment:
-      - http_proxy=${http_proxy}
-      - https_proxy=${https_proxy}      
+      - http_proxy=172.22.200.200:8080
+      - https_proxy=172.22.200.200:8080    
     depends_on:
       - elasticsearch
     ports:
