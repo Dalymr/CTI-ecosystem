@@ -50,7 +50,7 @@ services:
     restart: on-failure
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.12
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9
     mem_limit: 1500m
     ports:
       - "9200:9200"
@@ -73,7 +73,7 @@ services:
       - "miniodata:/data"
 
   cortex:
-    image: thehiveproject/cortex:3.1.7
+    image: thehiveproject/cortex:3.1.0
     depends_on:
       - elasticsearch
     environment:
