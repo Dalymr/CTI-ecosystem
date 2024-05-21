@@ -62,7 +62,7 @@ services:
       - ./vol/cassandra-data:/var/lib/cassandra/data
 
   thehive:
-    image: 'thehiveproject/thehive4:latest'
+    image: 'thehiveproject/thehive4:4.1.0-1'
     container_name: thehive
     restart: always
     depends_on:
