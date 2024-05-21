@@ -116,7 +116,7 @@ services:
       - ./vol/shuffle-apps:/shuffle-apps
       - ./vol/shuffle-files:/shuffle-files
     environment:
-      - DATASTORE_EMULATOR_HOST=shuffle-database:7000
+      - DATASTORE_EMULATOR_HOST=shuffle-database:8000
       - SHUFFLE_APP_HOTLOAD_FOLDER=./shuffle-apps
       - SHUFFLE_FILE_LOCATION=./shuffle-files
       - ORG_ID=Shuffle
@@ -159,7 +159,7 @@ services:
     container_name: shuffle-database
     hostname: shuffle-database
     ports:
-      - "7000:7000"
+      - "20800:8000"
     restart: unless-stopped
     volumes:
       - ./vol/shuffle-database:/etc/shuffle
@@ -181,7 +181,7 @@ services:
       - VELOX_FRONTEND_HOSTNAME=velociraptor
 
     ports:
-      - "7000:7000"
+      - "8000:8000"
       - "8001:8001"
       - "8889:8889"
     restart: unless-stopped
