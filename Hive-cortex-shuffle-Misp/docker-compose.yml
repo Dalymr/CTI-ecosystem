@@ -167,7 +167,7 @@ services:
 
   velociraptor:
     container_name: velociraptor
-    image: augercs/velociraptor
+    image: kevinrue/velociraptor
     hostname: velociraptor
     #build:
     #  context: ./
