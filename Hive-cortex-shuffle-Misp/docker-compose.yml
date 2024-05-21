@@ -177,8 +177,8 @@ services:
       - VELOX_USER=${VELOX_USER}
       - VELOX_PASSWORD=${VELOX_PASSWORD}
       - VELOX_ROLE=${VELOX_ROLE}
-      - VELOX_SERVER_URL=${VELOX_SERVER_URL}
-      - VELOX_FRONTEND_HOSTNAME=${VELOX_FRONTEND_HOSTNAME}
+      - VELOX_SERVER_URL=https://velociraptor:8000/
+      - VELOX_FRONTEND_HOSTNAME=velociraptor
     ports:
       - "10000:8000"
       - "8001:8001"
