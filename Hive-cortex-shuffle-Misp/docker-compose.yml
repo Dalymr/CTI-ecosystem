@@ -74,6 +74,7 @@ services:
 
   cortex:
     image: thehiveproject/cortex:3.1.0
+    environment:
       - job_directory=${job_directory}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
