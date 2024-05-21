@@ -73,8 +73,7 @@ services:
       - "miniodata:/data"
 
   cortex:
-    image: thehiveproject/cortex:3.1.0-0.3RC1
-    environment:
+    image: thehiveproject/cortex:3.1.0
       - job_directory=${job_directory}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
