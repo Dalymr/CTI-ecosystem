@@ -154,5 +154,7 @@ services:
     volumes:
       - ./vol/shuffle-database:/etc/shuffle
 
-
+volumes:
+  thehive-data:
+  thehive-index:
 
