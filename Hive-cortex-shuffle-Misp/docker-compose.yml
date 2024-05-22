@@ -42,7 +42,7 @@ services:
     ports:
       - "0.0.0.0:9042:9042"
     environment:
-      - CASSANDRA_CLUSTER_NAME=TheHive
+      - CASSANDRA_CLUSTER_NAME=hive
     volumes:
       - cassandradata:/var/lib/cassandra
     networks:
@@ -51,7 +51,7 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
     restart: unless-stopped
-    mem_limit: 512m
+    mem_limit: 10240m
     ports:
       - "0.0.0.0:9200:9200"
     environment:
@@ -59,7 +59,7 @@ services:
       - xpack.security.enabled=false
       - cluster.name=hive
       - http.host=0.0.0.0
-      - "ES_JAVA_OPTS=-Xms1G -Xmx1G"
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
     volumes:
       - elasticsearchdata:/usr/share/elasticsearch/data
     networks:
