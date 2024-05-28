@@ -109,8 +109,8 @@ services:
     hostname: agent1
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
     command: >
-              bash -c " apt --fix-broken install 
-                        apt install git
+              bash -c " apt --fix-broken install -y
+                        apt install git -y
                         git clone https://github.com/Dalymr/SCRIPTS.git 
                         cd SCRIPTS/ 
                         bash wazuhagent1-register.sh "
@@ -131,8 +131,8 @@ services:
     hostname: agent2
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
     command: >
-              bash -c " apt --fix-broken install 
-                        apt install git
+              bash -c " apt --fix-broken install  -y
+                        apt install git -y
                         git clone https://github.com/Dalymr/SCRIPTS.git 
                         cd SCRIPTS/ 
                         bash wazuhagent2-register.sh "
