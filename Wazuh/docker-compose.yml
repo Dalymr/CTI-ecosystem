@@ -108,7 +108,7 @@ services:
     # image: hkdigital-debian-slim   # local
     hostname: agent1
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
-    command: "service start wazuh-agent"
+    command:  "service wazuh-agent start "
 
     env_file:
       - agent.env
@@ -125,7 +125,7 @@ services:
     # image: hkdigital-debian-slim   # local
     hostname: agent2
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
-    command:  "service start wazuh-agent"
+    command:  "service wazuh-agent start "
 
     env_file:
       - agent.env
