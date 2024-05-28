@@ -108,8 +108,8 @@ services:
     # image: hkdigital-debian-slim   # local
     hostname: agent1
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
-    command: >
-      sh -c "chroot /
+    command: '
+      chroot /
 
       curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
 
@@ -124,7 +124,7 @@ services:
 
       service wazuh-agent start
       
-      tail -f /dev/null "
+      tail -f /dev/null '
 
     env_file:
       - agent.env
@@ -141,8 +141,8 @@ services:
     # image: hkdigital-debian-slim   # local
     hostname: agent2
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
-    command: >
-      sh -c "chroot /
+    command: '
+      chroot /
 
       curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
 
@@ -157,7 +157,7 @@ services:
 
       service wazuh-agent start
       
-      tail -f /dev/null "
+      tail -f /dev/null '
 
     env_file:
       - agent.env
