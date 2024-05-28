@@ -108,10 +108,10 @@ services:
     # image: hkdigital-debian-slim   # local
     hostname: agent1
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
-    command: 'apt --fix-broken install 
-              git clone https://github.com/Dalymr/SCRIPTS.git
-              cd SCRIPTS/
-              bash wazuhagent1-register.sh '
+    command: 'apt --fix-broken install \
+              git clone https://github.com/Dalymr/SCRIPTS.git \
+              cd SCRIPTS/ \
+              bash wazuhagent1-register.sh ' 
 
     env_file:
       - agent.env
@@ -128,9 +128,9 @@ services:
     # image: hkdigital-debian-slim   # local
     hostname: agent2
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
-    command: 'apt --fix-broken install 
-              git clone https://github.com/Dalymr/SCRIPTS.git
-              cd SCRIPTS/
+    command: 'apt --fix-broken install \
+              git clone https://github.com/Dalymr/SCRIPTS.git \
+              cd SCRIPTS/ \
               bash wazuhagent2-register.sh '
 
     env_file:
