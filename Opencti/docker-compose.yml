@@ -93,9 +93,9 @@ services:
       net:
         ipv4_address: 10.0.0.5
       platform_connections:
-        ipv4_address: 10.0.0.51
+        ipv4_address: 10.0.0.59
       internet_gateway:
-        ipv4_address: 10.0.0.66
+        ipv4_address: 10.0.0.76
   connector-export-file-stix:
     image: opencti/connector-export-file-stix:6.0.0
     environment:
