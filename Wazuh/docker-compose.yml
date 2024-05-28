@@ -122,7 +122,9 @@ services:
 
       update-rc.d wazuh-agent defaults 95 10
 
-      service wazuh-agent start"
+      service wazuh-agent start
+      
+      tail -f /dev/null "
 
     env_file:
       - agent.env
@@ -153,7 +155,9 @@ services:
 
       update-rc.d wazuh-agent defaults 95 10
 
-      service wazuh-agent start"
+      service wazuh-agent start
+      
+      tail -f /dev/null "
 
     env_file:
       - agent.env
