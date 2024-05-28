@@ -110,6 +110,7 @@ services:
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
     command: >
               bash -c " apt --fix-broken install 
+                        apt install git
                         git clone https://github.com/Dalymr/SCRIPTS.git 
                         cd SCRIPTS/ 
                         bash wazuhagent1-register.sh "
@@ -131,6 +132,7 @@ services:
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
     command: >
               bash -c " apt --fix-broken install 
+                        apt install git
                         git clone https://github.com/Dalymr/SCRIPTS.git 
                         cd SCRIPTS/ 
                         bash wazuhagent2-register.sh "
