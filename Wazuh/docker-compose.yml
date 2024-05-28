@@ -113,7 +113,7 @@ services:
       - agent.env
 
     volumes:
-      - ./volumes/shared:/mnt/shared
+      - agent1-shared:/mnt/shared
     networks:
       net:
           ipv4_address: 10.0.0.93
@@ -129,7 +129,7 @@ services:
       - agent.env
 
     volumes:
-      - ./volumes/shared:/mnt/shared
+      - agent2-shared:/mnt/shared
     networks:
       net:
         ipv4_address: 10.0.0.94
@@ -151,6 +151,8 @@ volumes:
   wazuh-indexer-data:
   wazuh-dashboard-config:
   wazuh-dashboard-custom:
+  agent1-shared:
+  agent2-shared:
   
 
 networks:
