@@ -107,12 +107,7 @@ services:
     image: noenv/wazuh-agent
     container_name: wazuh-agent-1
     restart: always
-    volumes:
-      - /etc/os-release:/etc/os-release
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /var/ossec/ossec.conf:/var/ossec/etc/ossec.conf
-      - /var/ossec/local_internal_options.conf:/var/ossec/etc/local_internal_options.conf
-      - /var/ossec/client.keys:/var/ossec/etc/client.keys
+
     environment:
       - JOIN_MANAGER=10.0.0.90
     hostname: Agent-1
@@ -125,12 +120,6 @@ services:
     image: noenv/wazuh-agent
     container_name: wazuh-agent-2
     restart: always
-    volumes:
-      - /etc/os-release:/etc/os-release
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /var/ossec/ossec.conf:/var/ossec/etc/ossec.conf
-      - /var/ossec/local_internal_options.conf:/var/ossec/etc/local_internal_options.conf
-      - /var/ossec/client.keys:/var/ossec/etc/client.keys
     environment:
       - JOIN_MANAGER=10.0.0.90
     hostname: Agent-2
