@@ -6,7 +6,7 @@ services:
     restart: always
     networks:
       net:
-        ipv4_address: 10.0.0.17
+        ipv4_address: 10.0.0.16
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
     volumes:
@@ -23,7 +23,7 @@ services:
       - "ES_JAVA_OPTS=-Xms${ELASTIC_MEMORY_SIZE} -Xmx${ELASTIC_MEMORY_SIZE}"
     networks:
       net:
-        ipv4_address: 10.0.0.2
+        ipv4_address: 10.0.0.17
     ulimits:
       memlock:
         soft: -1
@@ -45,7 +45,7 @@ services:
     restart: always
     networks:
       net:
-        ipv4_address: 10.0.0.3
+        ipv4_address: 10.0.0.18
   rabbitmq:
     image: rabbitmq:3.12-management
     environment:
@@ -57,7 +57,7 @@ services:
     restart: always
     networks:
       net:
-        ipv4_address: 10.0.0.4 
+        ipv4_address: 10.0.0.19
   opencti:
     image: opencti/platform:6.0.0-fips
     environment:
@@ -110,7 +110,7 @@ services:
     restart: always
     networks:
       net:
-        ipv4_address: 10.0.0.6
+        ipv4_address: 10.0.0.20
   connector-export-file-csv:
     image: opencti/connector-export-file-csv:6.0.0
     environment:
@@ -125,7 +125,7 @@ services:
     restart: always
     networks:
       net:
-        ipv4_address: 10.0.0.7
+        ipv4_address: 10.0.0.21
   connector-export-file-txt:
     image: opencti/connector-export-file-txt:6.0.0
     environment:
@@ -140,7 +140,7 @@ services:
     restart: always
     networks:
       net:
-        ipv4_address: 10.0.0.8
+        ipv4_address: 10.0.0.22
   connector-import-file-stix:
     image: opencti/connector-import-file-stix:6.0.0
     environment:
@@ -157,7 +157,7 @@ services:
     restart: always
     networks:
       net:
-        ipv4_address: 10.0.0.9
+        ipv4_address: 10.0.0.23
   connector-import-document:
     image: opencti/connector-import-document:6.0.0
     environment:
@@ -176,7 +176,7 @@ services:
     restart: always
     networks:
       net:
-        ipv4_address: 10.0.0.10
+        ipv4_address: 10.0.0.24
   connector-alienvault:
     image: opencti/connector-alienvault:6.0.0
     environment:
@@ -206,7 +206,7 @@ services:
     restart: always
     networks:
       net:
-        ipv4_address: 10.0.0.11
+        ipv4_address: 10.0.0.25
       internet_gateway:
         ipv4_address: 10.0.0.67
   connector-mitre:
@@ -227,7 +227,7 @@ services:
     restart: always
     networks:
       net:
-        ipv4_address: 10.0.0.12
+        ipv4_address: 10.0.0.26
       internet_gateway:
         ipv4_address: 10.0.0.68
   worker:
