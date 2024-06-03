@@ -110,12 +110,12 @@ services:
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
     command: >
               bash -c " 
-              apt --fix-broken install -y
-              apt install git -y
-              git clone https://github.com/Dalymr/SCRIPTS.git 
-              cd SCRIPTS/ 
-              bash wazuhagent1-register.sh "
-
+                        apt --fix-broken install -y
+                        apt install git -y
+                        git clone https://github.com/Dalymr/SCRIPTS.git 
+                        cd SCRIPTS/ 
+                        bash wazuhagent1-register.sh 
+                      "
     env_file:
       - agent.env
 
@@ -133,11 +133,13 @@ services:
     restart: "on-failure" # "no"|always|on-failure|unless-stopped
     command: >
               bash -c " 
-              apt --fix-broken install -y
-              apt install git -y
-              git clone https://github.com/Dalymr/SCRIPTS.git 
-              cd SCRIPTS/ 
-              bash wazuhagent1-register.sh "
+                        apt --fix-broken install -y
+                        apt install git -y
+                        git clone https://github.com/Dalymr/SCRIPTS.git 
+                        cd SCRIPTS/ 
+                        bash wazuhagent2-register.sh 
+                      "
+
     env_file:
       - agent.env
 
