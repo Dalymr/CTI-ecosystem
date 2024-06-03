@@ -104,25 +104,45 @@ services:
       platform_connections:
         ipv4_address: 10.0.0.53
   wazuh-agent-1:
-    image: noenv/wazuh-agent
-    container_name: wazuh-agent-1
-    restart: always
+    image: hkdigital/debian-slim   # docker-hub
+    # image: hkdigital-debian-slim   # local
+    hostname: agent1
+    restart: "on-failure" # "no"|always|on-failure|unless-stopped
+    command: >
+              bash -c " 
+              apt --fix-broken install -y
+              apt install git -y
+              git clone https://github.com/Dalymr/SCRIPTS.git 
+              cd SCRIPTS/ 
+              bash wazuhagent1-register.sh "
 
-    environment:
-      - JOIN_MANAGER=10.0.0.90
-    hostname: Agent-1
+    env_file:
+      - agent.env
+
+    volumes:
+      - agent1-shared:/mnt/shared
     networks:
       net:
           ipv4_address: 10.0.0.93
       internet_gateway:
         ipv4_address: 10.0.0.71
   wazuh-agent-2:
-    image: noenv/wazuh-agent
-    container_name: wazuh-agent-2
-    restart: always
-    environment:
-      - JOIN_MANAGER=10.0.0.90
-    hostname: Agent-2
+    image: hkdigital/debian-slim   # docker-hub
+    # image: hkdigital-debian-slim   # local
+    hostname: agent2
+    restart: "on-failure" # "no"|always|on-failure|unless-stopped
+    command: >
+              bash -c " 
+              apt --fix-broken install -y
+              apt install git -y
+              git clone https://github.com/Dalymr/SCRIPTS.git 
+              cd SCRIPTS/ 
+              bash wazuhagent1-register.sh "
+    env_file:
+      - agent.env
+
+    volumes:
+      - agent2-shared:/mnt/shared
     networks:
       net:
         ipv4_address: 10.0.0.94
