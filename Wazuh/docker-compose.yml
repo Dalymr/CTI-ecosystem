@@ -103,48 +103,41 @@ services:
         ipv4_address: 10.0.0.92
       platform_connections:
         ipv4_address: 10.0.0.53
-  wazuh-agent-1:
-    image: hkdigital/debian-slim   # docker-hub
-    # image: hkdigital-debian-slim   # local
-    hostname: agent1
-    restart: "on-failure" # "no"|always|on-failure|unless-stopped
-    command: >
-              bash -c " apt update --fix-missing -y
-                        apt --fix-broken install -y
-                        apt install git -y
-                        git clone https://github.com/Dalymr/SCRIPTS.git 
-                        cd SCRIPTS/ 
-                        bash wazuhagent1-register.sh 
-                      "
-    env_file:
-      - agent.env
 
+
+  wazuh-agent-1:
+    image: fajarhide/wazuh-agent
+    container_name: wazuh-agent-1
+    environment:
+      WAZUH_MANAGER_IP: '10.0.2.16'
+      WAZUH_MANAGER_PORT: 1514
     volumes:
-      - agent1-shared:/mnt/shared
+      - /var/log/syslog:/var/log/syslog
+      - /var/log/auth.log:/var/log/auth.log
+      - /var/log/dpkg.log:/var/log/dpkg.log
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     networks:
       net:
           ipv4_address: 10.0.0.93
       internet_gateway:
         ipv4_address: 10.0.0.71
+
+
   wazuh-agent-2:
-    image: hkdigital/debian-slim   # docker-hub
-    # image: hkdigital-debian-slim   # local
-    hostname: agent2
-    restart: "on-failure" # "no"|always|on-failure|unless-stopped
-    command: >
-              bash -c " apt update --fix-missing -y
-                        apt --fix-broken install -y
-                        apt install git -y
-                        git clone https://github.com/Dalymr/SCRIPTS.git 
-                        cd SCRIPTS/ 
-                        bash wazuhagent2-register.sh 
-                      "
-
-    env_file:
-      - agent.env
-
+    image: fajarhide/wazuh-agent
+    container_name: wazuh-agent-2
+    environment:
+      WAZUH_MANAGER_IP: '10.0.2.16'
+      WAZUH_MANAGER_PORT: 1514
     volumes:
-      - agent2-shared:/mnt/shared
+      - /var/log/syslog:/var/log/syslog
+      - /var/log/auth.log:/var/log/auth.log
+      - /var/log/dpkg.log:/var/log/dpkg.log
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     networks:
       net:
         ipv4_address: 10.0.0.94
