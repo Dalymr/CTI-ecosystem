@@ -112,6 +112,7 @@ services:
     environment:
       WAZUH_MANAGER_IP: '10.0.0.90'
       WAZUH_MANAGER_PORT: 1514
+      WAZUH_AGENT_NAME: 'ooredoo-client-1'
     volumes:
       - /var/log/syslog:/var/log/syslog
       - /var/log/auth.log:/var/log/auth.log
@@ -133,6 +134,7 @@ services:
     environment:
       WAZUH_MANAGER_IP: '10.0.0.90'
       WAZUH_MANAGER_PORT: 1514
+      WAZUH_AGENT_NAME: 'ooredoo-client-2'
     volumes:
       - /var/log/syslog:/var/log/syslog
       - /var/log/auth.log:/var/log/auth.log
