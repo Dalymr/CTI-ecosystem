@@ -108,6 +108,7 @@ services:
   wazuh-agent-1:
     image: fajarhide/wazuh-agent
     container_name: wazuh-agent-1
+    restart: always
     environment:
       WAZUH_MANAGER_IP: '10.0.0.90'
       WAZUH_MANAGER_PORT: 1514
@@ -128,6 +129,7 @@ services:
   wazuh-agent-2:
     image: fajarhide/wazuh-agent
     container_name: wazuh-agent-2
+    restart: always
     environment:
       WAZUH_MANAGER_IP: '10.0.0.90'
       WAZUH_MANAGER_PORT: 1514
