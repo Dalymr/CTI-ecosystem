@@ -109,7 +109,7 @@ services:
     image: fajarhide/wazuh-agent
     container_name: wazuh-agent-1
     environment:
-      WAZUH_MANAGER_IP: '10.0.2.16'
+      WAZUH_MANAGER_IP: '10.0.0.90'
       WAZUH_MANAGER_PORT: 1514
     volumes:
       - /var/log/syslog:/var/log/syslog
@@ -129,7 +129,7 @@ services:
     image: fajarhide/wazuh-agent
     container_name: wazuh-agent-2
     environment:
-      WAZUH_MANAGER_IP: '10.0.2.16'
+      WAZUH_MANAGER_IP: '10.0.0.90'
       WAZUH_MANAGER_PORT: 1514
     volumes:
       - /var/log/syslog:/var/log/syslog
