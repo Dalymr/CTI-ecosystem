@@ -16,3 +16,5 @@ This Project allows the user to deploy a docker compose of a cyberthreat intelli
 
 
 To Deploy simply pull both branches ( main-sec-auto / main-sec-dev ) and use " runcompose.sh " to allow compose to create the containers.
+
+NOTE THAT IN THIS VERSION THE DEPLOYED CONTAINERS HAS A PROXY CONFIG, BE ADVICED TO REMOVE THE HTTP_PROXY ENV VARIABLES IN THE COMPOSE CONFIG FILES .
