@@ -190,7 +190,7 @@ services:
       - CONNECTOR_CONFIDENCE_LEVEL=15 # From 0 (Unknown) to 100 (Fully trusted)
       - CONNECTOR_LOG_LEVEL=error
       - ALIENVAULT_BASE_URL=https://otx.alienvault.com
-      - ALIENVAULT_API_KEY=3e46d7e2bc7cb18897922015a9bd9a1c9f644be56cf0a2a8248bea3c3219d4b5
+      - ALIENVAULT_API_KEY=
       - ALIENVAULT_TLP=White
       - ALIENVAULT_CREATE_OBSERVABLES=true
       - ALIENVAULT_CREATE_INDICATORS=true
